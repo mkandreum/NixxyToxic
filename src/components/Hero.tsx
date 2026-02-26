@@ -19,22 +19,7 @@ export default function Hero() {
     <section className="relative min-h-[80vh] flex flex-col items-center justify-center overflow-hidden py-12 px-4">
       {/* Background elements */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <motion.div
-          animate={{
-            scale: [1, 1.1, 1],
-            rotate: [0, 5, 0]
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute -top-1/4 -right-1/4 w-[600px] h-[600px] bg-[#ff00ff]/10 rounded-full blur-[120px]"
-        />
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, -10, 0]
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute -bottom-1/4 -left-1/4 w-[600px] h-[600px] bg-[#00ffff]/10 rounded-full blur-[120px]"
-        />
+        {/* No color glows to avoid mixing greens */}
       </div>
 
       <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">

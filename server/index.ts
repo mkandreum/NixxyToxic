@@ -39,10 +39,23 @@ const authenticate = (req: any, res: any, next: any) => {
     }
 };
 
-// Static files
+// Static files with aggressive caching for performance
 const distPath = path.join(__dirname, '../dist');
-app.use(express.static(distPath));
-app.use('/uploads', express.static(uploadsDir));
+app.use(express.static(distPath, {
+    maxAge: '1d',
+    setHeaders: (res, path) => {
+        if (path.match(/\.(js|css|woff2|webp|png|jpg|mp4)$/)) {
+            res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+        }
+    }
+}));
+
+app.use('/uploads', express.static(uploadsDir, {
+    maxAge: '30d',
+    setHeaders: (res) => {
+        res.setHeader('Cache-Control', 'public, max-age=2592000');
+    }
+}));
 
 // --- AUTH ROUTES ---
 app.post('/api/login', (req, res) => {

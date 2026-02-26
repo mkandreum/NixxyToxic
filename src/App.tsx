@@ -48,9 +48,9 @@ export default function App() {
         <Banners />
 
         {/* Navigation - Floating Pill */}
-        <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-fit max-w-[98vw] z-50 border-2 border-black rounded-full bg-[#dfff00]/10 backdrop-blur-[2px] flex justify-between items-center px-3 py-1 md:px-8 md:py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] gap-1 sm:gap-6 md:gap-10 whitespace-nowrap overflow-hidden">
-          <a href="#gallery" className="text-sm sm:text-2xl md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black shrink">Gallery</a>
-          <a href="#events" className="text-sm sm:text-2xl md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black shrink">Shows</a>
+        <nav className="fixed top-8 left-1/2 -translate-x-1/2 w-fit max-w-[95vw] z-50 border-4 md:border-6 border-black rounded-full bg-[#dfff00] flex justify-between items-center px-4 py-2 md:px-16 md:py-6 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] gap-2 sm:gap-10 md:gap-20 whitespace-nowrap overflow-hidden">
+          <a href="#gallery" className="text-sm sm:text-2xl md:text-5xl uppercase hover:glitch-text transition-all font-mono font-black shrink hover:text-[#ff00ff]">Gallery</a>
+          <a href="#events" className="text-sm sm:text-2xl md:text-5xl uppercase hover:glitch-text transition-all font-mono font-black shrink hover:text-[#00ff00]">Shows</a>
 
           <a
             href="#"
@@ -59,33 +59,33 @@ export default function App() {
               setCurrentView('home');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="mx-1 md:mx-4 select-none flex items-center justify-center flex-shrink-0 min-w-fit"
+            className="mx-2 md:mx-8 select-none flex items-center justify-center flex-shrink-0 min-w-fit hover:scale-110 active:scale-95 transition-transform"
           >
             {siteSettings.site_logo_url ? (
-              <img src={siteSettings.site_logo_url} alt="Logo" className="h-10 sm:h-16 md:h-24 w-auto object-contain drop-shadow-[4px_4px_0px_rgba(0,0,0,1)] flex-shrink-0" />
+              <img src={siteSettings.site_logo_url} alt="Logo" className="h-14 sm:h-24 md:h-36 w-auto object-contain drop-shadow-[6px_6px_0px_rgba(0,0,0,1)] flex-shrink-0" />
             ) : (
-              <span className="text-xl sm:text-3xl md:text-5xl font-logo leading-none text-center flex flex-col uppercase flex-shrink-0">
+              <span className="text-2xl sm:text-5xl md:text-7xl font-logo leading-none text-center flex flex-col uppercase flex-shrink-0">
                 {siteSettings.site_logo_text.split(' ').map((word: string, i: number) => (
-                  <span key={i}>{word}</span>
+                  <span key={i} className={i % 2 === 0 ? "text-black" : "text-[#ff00ff]"}>{word}</span>
                 ))}
               </span>
             )}
           </a>
 
-          <a href="#store" className="text-sm sm:text-2xl md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black shrink">Store</a>
+          <a href="#store" className="text-sm sm:text-2xl md:text-5xl uppercase hover:glitch-text transition-all font-mono font-black shrink hover:text-[#00ffff]">Store</a>
 
           <button
             onClick={handleMenuClick}
-            className="relative w-8 h-5 sm:w-10 sm:h-6 z-50 flex-shrink-0 cursor-pointer"
+            className="relative w-12 h-8 sm:w-16 sm:h-10 md:w-20 md:h-12 z-50 flex-shrink-0 cursor-pointer group"
             aria-label="Menu"
           >
             <motion.span
-              animate={isMenuOpen ? { rotate: 45, top: "50%", y: "-50%" } : { rotate: 0, top: "0%", y: "0%" }}
-              className="absolute left-0 w-full h-[3px] md:h-[4px] bg-black block origin-center transition-all"
+              animate={isMenuOpen ? { rotate: 45, top: "50%", y: "-50%", backgroundColor: "#ff00ff" } : { rotate: 0, top: "0%", y: "0%", backgroundColor: "#000000" }}
+              className="absolute left-0 w-full h-[5px] md:h-[8px] block origin-center transition-all group-hover:bg-[#bc13fe]"
             />
             <motion.span
-              animate={isMenuOpen ? { rotate: -45, top: "50%", y: "-50%" } : { rotate: 0, top: "100%", y: "-100%" }}
-              className="absolute left-0 w-full h-[3px] md:h-[4px] bg-black block origin-center transition-all"
+              animate={isMenuOpen ? { rotate: -45, top: "50%", y: "-50%", backgroundColor: "#ff00ff" } : { rotate: 0, top: "100%", y: "-100%", backgroundColor: "#000000" }}
+              className="absolute left-0 w-full h-[5px] md:h-[8px] block origin-center transition-all group-hover:bg-[#bc13fe]"
             />
           </button>
         </nav>
