@@ -49,7 +49,7 @@ export default function App() {
 
         {/* Navigation - Floating Pill */}
         {currentView === 'home' && (
-          <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[98vw] md:w-fit md:max-w-[90vw] z-50 border-2 md:border-4 border-black rounded-full bg-[#d9ff36]/15 backdrop-blur-md flex items-center justify-between px-4 sm:px-6 py-1 md:px-10 md:py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[92vw] md:w-fit md:max-w-[90vw] z-50 border-2 md:border-4 border-black rounded-full bg-[#d9ff36]/15 backdrop-blur-md flex items-center justify-between px-4 sm:px-6 py-1 md:px-10 md:py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
             <a href="#gallery" className="flex flex-col items-center md:flex-row md:gap-2 text-base md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black hover:text-[#ff00ff] leading-none"><span className="text-xl sm:text-xl md:text-3xl">📸</span><span>Gallery</span></a>
             <a href="#events" className="flex flex-col items-center md:flex-row md:gap-2 text-base md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black hover:text-[#ff00ff] leading-none"><span className="text-xl sm:text-xl md:text-3xl">🎤</span><span>Shows</span></a>
 
