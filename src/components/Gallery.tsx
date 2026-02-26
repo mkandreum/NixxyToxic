@@ -29,7 +29,7 @@ export default function Gallery() {
       .catch(err => console.error("Error fetching bg video:", err));
   }, []);
   return (
-    <section id="gallery" className="relative py-24 px-4 md:px-8 border-b-4 border-black bg-[#dfff00] overflow-hidden">
+    <section id="gallery" className="relative py-24 px-4 md:px-8 border-b-4 border-black bg-[#d9ff36] overflow-hidden">
       {/* Background Video */}
       {bgVideo && (
         <video

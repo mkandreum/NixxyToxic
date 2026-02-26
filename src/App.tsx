@@ -44,12 +44,12 @@ export default function App() {
 
   return (
     <ToastProvider>
-      <div className="min-h-screen bg-[#dfff00] text-black font-mono font-bold selection:bg-black selection:text-[#dfff00]">
+      <div className="min-h-screen bg-[#d9ff36] text-black font-mono font-bold selection:bg-black selection:text-[#d9ff36]">
         <Banners />
 
         {/* Navigation - Floating Pill */}
         {currentView === 'home' && (
-          <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[85vw] md:w-fit md:max-w-[90vw] z-50 border-2 md:border-4 border-black rounded-full bg-[#dfff00]/10 backdrop-blur-[1px] flex items-center justify-between overflow-hidden px-5 py-2 md:px-10 md:py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[85vw] md:w-fit md:max-w-[90vw] z-50 border-2 md:border-4 border-black rounded-full bg-[#d9ff36]/10 backdrop-blur-[1px] flex items-center justify-between overflow-hidden px-5 py-2 md:px-10 md:py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
             <a href="#gallery" className="flex flex-col items-center md:flex-row md:gap-2 text-base sm:text-lg md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black hover:text-[#ff00ff] leading-tight"><span className="text-xl sm:text-2xl md:text-3xl">📸</span><span>Gallery</span></a>
             <a href="#events" className="flex flex-col items-center md:flex-row md:gap-2 text-base sm:text-lg md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black hover:text-[#ff00ff] leading-tight"><span className="text-xl sm:text-2xl md:text-3xl">🎤</span><span>Shows</span></a>
 
@@ -105,7 +105,7 @@ export default function App() {
                 duration: 0.5,
               }}
               style={{ transform: "translateZ(0)", backfaceVisibility: "hidden" }}
-              className="fixed inset-0 z-40 bg-black text-[#dfff00] pt-32 px-8 flex flex-col gap-8 text-5xl md:text-8xl uppercase tracking-tighter font-black overflow-y-auto pb-12 will-change-transform"
+              className="fixed inset-0 z-40 bg-black text-[#d9ff36] pt-32 px-8 flex flex-col gap-8 text-5xl md:text-8xl uppercase tracking-tighter font-black overflow-y-auto pb-12 will-change-transform"
             >
               {[
                 { href: "#gallery", label: "Gallery", icon: ImageIcon, color: "hover:text-[#ff00ff]" },
@@ -119,7 +119,7 @@ export default function App() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 + (i * 0.1), ease: [0.16, 1, 0.3, 1] }}
-                  className={`${item.color} transition-colors flex items-center gap-6 py-4 border-b-4 border-[#dfff00]/20 hover:border-[#ff00ff] hover:pl-8`}
+                  className={`${item.color} transition-colors flex items-center gap-6 py-4 border-b-4 border-[#d9ff36]/20 hover:border-[#ff00ff] hover:pl-8`}
                 >
                   <item.icon size={64} className="hidden md:block" /> {item.label}
                 </motion.a>
@@ -142,7 +142,7 @@ export default function App() {
               <Hero />
               <Marquee text="NIXXY TOXIC BITCH! • " />
               <Gallery />
-              <Marquee text="UPCOMING EVENTS • " reverse bg="bg-[#dfff00]" textCol="text-black" />
+              <Marquee text="UPCOMING EVENTS • " reverse bg="bg-[#d9ff36]" textCol="text-black" />
               <Events />
               <Marquee text="MERCHANDISE • " />
               <Store />
@@ -161,7 +161,7 @@ export default function App() {
           )}
         </main>
 
-        <footer className="border-t-4 border-black bg-black text-[#dfff00] p-12 md:p-24 text-center flex flex-col items-center gap-8">
+        <footer className="border-t-4 border-black bg-black text-[#d9ff36] p-12 md:p-24 text-center flex flex-col items-center gap-8">
           {siteSettings.site_logo_url ? (
             <img src={siteSettings.site_logo_url} alt="Logo" className="h-24 md:h-48 w-auto object-contain brightness-0 invert" />
           ) : (

@@ -50,7 +50,7 @@ function CustomModal({ isOpen, onClose, title, onConfirm, fields, confirmText = 
                 />
                 <motion.div
                     initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.9, y: 20 }}
-                    className="bg-[#dfff00] border-8 border-black p-8 max-w-lg w-full relative z-[301] shadow-[16px_16px_0px_0px_rgba(0,0,0,1)]"
+                    className="bg-[#d9ff36] border-8 border-black p-8 max-w-lg w-full relative z-[301] shadow-[16px_16px_0px_0px_rgba(0,0,0,1)]"
                 >
                     <button onClick={onClose} className="absolute top-4 right-4 hover:rotate-90 transition-transform">
                         <X size={32} />
@@ -80,7 +80,7 @@ function CustomModal({ isOpen, onClose, title, onConfirm, fields, confirmText = 
                     <div className="flex gap-4">
                         <button
                             onClick={() => onConfirm(fields ? formData : true)}
-                            className="flex-1 bg-black text-[#dfff00] py-4 text-2xl uppercase font-black hover:bg-[#ff00ff] hover:text-white transition-all shadow-[6px_6px_0px_0px_rgba(0,0,0,0.3)]"
+                            className="flex-1 bg-black text-[#d9ff36] py-4 text-2xl uppercase font-black hover:bg-[#ff00ff] hover:text-white transition-all shadow-[6px_6px_0px_0px_rgba(0,0,0,0.3)]"
                         >
                             {confirmText}
                         </button>
@@ -163,7 +163,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                 await toxicFetch('/api/banners', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ ...formData, bg_color: '#dfff00', text_color: 'black' })
+                    body: JSON.stringify({ ...formData, bg_color: '#d9ff36', text_color: 'black' })
                 });
                 refreshData();
                 showToast("Banner created!", "success");
@@ -205,33 +205,45 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
             />
 
             {/* Mobile Header */}
-            <header className="md:hidden sticky top-0 z-[150] bg-[#dfff00] border-b-4 border-black p-4 flex justify-between items-center shadow-[0px_4px_10px_rgba(0,0,0,0.1)]">
+            <header className="md:hidden sticky top-0 z-[100] bg-[#d9ff36] border-b-4 border-black p-4 flex justify-between items-center shadow-lg">
                 <div className="flex items-center gap-3">
-                    <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-2 border-2 border-black bg-white shadow-[2px_2px_0px_0px_black] active:translate-y-0.5 active:shadow-none transition-all">
-                        {isMobileMenuOpen ? <X size={24} /> : <LayoutDashboard size={24} />}
+                    <button onClick={() => setIsMobileMenuOpen(true)} className="p-2 border-2 border-black bg-white shadow-[2px_2px_0px_0px_black]">
+                        <LayoutDashboard size={24} />
                     </button>
                     <span className="font-black uppercase tracking-tighter text-xl">
                         {tabs.find(t => t.id === activeTab)?.label}
                     </span>
                 </div>
-                <button onClick={logout} className="p-2 border-2 border-black bg-white shadow-[2px_2px_0px_0px_black] active:translate-y-0.5 active:shadow-none transition-all">
+                <button onClick={logout} className="p-2 border-2 border-black bg-white shadow-[2px_2px_0px_0px_black]">
                     <LogOut size={24} />
                 </button>
             </header>
 
+            {/* Mobile Backdrop */}
+            <AnimatePresence>
+                {isMobileMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[190] md:hidden"
+                    />
+                )}
+            </AnimatePresence>
+
             {/* Sidebar (Mobile Drawer / Desktop Static) */}
             <aside className={`
-                fixed inset-y-0 left-0 z-[140] bg-[#dfff00] transform transition-transform duration-300 md:relative md:translate-x-0 md:z-0
+                fixed inset-y-0 left-0 z-[200] bg-[#d9ff36] transform transition-transform duration-300 md:relative md:translate-x-0 md:z-0
                 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
-                w-[80%] md:w-80 border-r-4 border-black flex flex-col shadow-[10px_0px_30px_rgba(0,0,0,0.2)] md:shadow-none
+                w-[85%] md:w-80 border-r-4 border-black flex flex-col shadow-[10px_0px_40px_rgba(0,0,0,0.5)] md:shadow-none
             `}>
-                <div className="p-8 border-b-4 border-black hidden md:block">
-                    <h1 className="text-4xl font-logo uppercase leading-none">Toxic<br />Panel</h1>
+                <div className="p-8 border-b-4 border-black flex justify-between items-center bg-black text-[#d9ff36]">
+                    <h1 className="text-3xl md:text-4xl font-logo uppercase leading-none">Toxic<br className="hidden md:block" /> Panel</h1>
+                    <button onClick={() => setIsMobileMenuOpen(false)} className="md:hidden p-2 border-2 border-[#d9ff36]">
+                        <X size={28} />
+                    </button>
                 </div>
-                <nav className="flex-1 p-4 flex flex-col gap-2 overflow-y-auto pt-24 md:pt-4">
-                    <div className="md:hidden mb-8 border-b-2 border-black pb-4">
-                        <h2 className="text-2xl font-black uppercase italic">Admin Menu</h2>
-                    </div>
+                <nav className="flex-1 p-4 flex flex-col gap-2 overflow-y-auto pt-8">
+                    <div className="md:hidden mb-4 opacity-50 text-sm font-black uppercase tracking-widest px-4">Admin Menu</div>
                     {tabs.map((tab) => (
                         <button
                             key={tab.id}
@@ -240,7 +252,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                                 setIsMobileMenuOpen(false);
                             }}
                             className={`flex items-center gap-4 p-4 text-xl uppercase font-black border-4 transition-all ${activeTab === tab.id
-                                ? 'bg-black text-[#dfff00] border-black shadow-[4px_4px_0px_0px_black]'
+                                ? 'bg-black text-[#d9ff36] border-black shadow-[4px_4px_0px_0px_black]'
                                 : 'border-transparent hover:border-black/20'
                                 }`}
                         >
@@ -251,7 +263,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                 </nav>
                 <button
                     onClick={logout}
-                    className="p-8 border-t-4 border-black flex items-center gap-4 text-2xl uppercase font-black hover:bg-black hover:text-[#dfff00] transition-colors md:flex hidden"
+                    className="p-8 border-t-4 border-black flex items-center gap-4 text-2xl uppercase font-black hover:bg-black hover:text-[#d9ff36] transition-colors md:flex hidden"
                 >
                     <LogOut size={24} /> Logout
                 </button>
@@ -296,7 +308,7 @@ function OverviewTab({ data }: { data: any }) {
             {[
                 { label: 'Photos', value: data.gallery?.length || 0, color: 'bg-green-400' },
                 { label: 'Drag Shows', value: data.events?.length || 0, color: 'bg-purple-400' },
-                { label: 'Products', value: data.products?.length || 0, color: 'bg-[#dfff00]' },
+                { label: 'Products', value: data.products?.length || 0, color: 'bg-[#d9ff36]' },
                 { label: 'Orders', value: data.orders?.length || 0, color: 'bg-blue-400' },
             ].map((stat, i) => (
                 <div key={i} className={`border-4 border-black p-8 shadow-[8px_8px_0px_0px_#000] ${stat.color}`}>
@@ -361,7 +373,7 @@ function EventsTab({ items, onUpdate, openConfirm }: { items: any[], onUpdate: (
             {items.map((event) => (
                 <div key={event.id} className="border-4 border-black p-6 flex flex-col md:flex-row justify-between items-center gap-6 shadow-[8px_8px_0px_0px_#000]">
                     <div className="flex gap-8 items-center flex-1">
-                        <div className="text-4xl font-black bg-black text-[#dfff00] p-4 min-w-[140px] text-center">{event.date}</div>
+                        <div className="text-4xl font-black bg-black text-[#d9ff36] p-4 min-w-[140px] text-center">{event.date}</div>
                         <div>
                             <p className="text-2xl font-black uppercase">{event.city}</p>
                             <p className="text-xl uppercase opacity-60 font-bold">{event.venue}</p>
@@ -430,7 +442,7 @@ function StoreTab({ items, onUpdate, openConfirm, openForm }: { items: any[], on
                             <Trash2 size={24} />
                         </button>
                     </div>
-                    <div className="p-6 border-t-4 border-black bg-[#dfff00]/10">
+                    <div className="p-6 border-t-4 border-black bg-[#d9ff36]/10">
                         <h3 className="text-2xl font-black uppercase mb-2">{prod.name}</h3>
                         <p className="text-3xl font-black">{prod.price}€</p>
                     </div>
@@ -498,7 +510,7 @@ function SMTPTab({ smtp, onUpdate }: { smtp: any, onUpdate: () => void }) {
 
     return (
         <form onSubmit={handleSave} className="max-w-2xl space-y-6">
-            <div className="flex items-center gap-4 border-4 border-black p-6 bg-[#dfff00]/10">
+            <div className="flex items-center gap-4 border-4 border-black p-6 bg-[#d9ff36]/10">
                 <input
                     type="checkbox"
                     checked={formData.enabled === 1}
@@ -530,7 +542,7 @@ function SMTPTab({ smtp, onUpdate }: { smtp: any, onUpdate: () => void }) {
             </div>
 
             <div className="pt-6">
-                <button type="submit" className="bg-black text-[#dfff00] px-12 py-6 text-3xl uppercase font-black hover:bg-[#ff00ff] hover:text-black transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                <button type="submit" className="bg-black text-[#d9ff36] px-12 py-6 text-3xl uppercase font-black hover:bg-[#ff00ff] hover:text-black transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
                     Save SMTP Settings
                 </button>
             </div>
@@ -618,12 +630,12 @@ function SettingsTab({ settings, onUpdate }: { settings: any, onUpdate: () => vo
         <div className="max-w-2xl space-y-8">
             <div className="space-y-4">
                 <label className="block text-2xl uppercase font-black">Logo Text (Fallback)</label>
-                <input type="text" value={logoText} onChange={(e) => setLogoText(e.target.value)} className="w-full border-4 border-black p-4 text-2xl outline-none focus:bg-[#dfff00]/10" />
+                <input type="text" value={logoText} onChange={(e) => setLogoText(e.target.value)} className="w-full border-4 border-black p-4 text-2xl outline-none focus:bg-[#d9ff36]/10" />
             </div>
 
             <div className="space-y-4">
                 <label className="block text-2xl uppercase font-black">Hero Phrase</label>
-                <input type="text" value={heroPhrase} onChange={(e) => setHeroPhrase(e.target.value)} className="w-full border-4 border-black p-4 text-2xl outline-none focus:bg-[#dfff00]/10" />
+                <input type="text" value={heroPhrase} onChange={(e) => setHeroPhrase(e.target.value)} className="w-full border-4 border-black p-4 text-2xl outline-none focus:bg-[#d9ff36]/10" />
             </div>
 
             <div className="space-y-4">
@@ -635,7 +647,7 @@ function SettingsTab({ settings, onUpdate }: { settings: any, onUpdate: () => vo
                             {heroImageUrl ? "Hero image uploaded" : "No hero image"}
                         </span>
                     </div>
-                    <label className="bg-black text-[#dfff00] px-4 py-2 uppercase font-black cursor-pointer hover:bg-[#ff00ff] transition-colors">
+                    <label className="bg-black text-[#d9ff36] px-4 py-2 uppercase font-black cursor-pointer hover:bg-[#ff00ff] transition-colors">
                         <Upload size={20} className="inline mr-2" /> Upload Image
                         <input type="file" className="hidden" onChange={handleHeroImageUpload} />
                     </label>
@@ -671,7 +683,7 @@ function SettingsTab({ settings, onUpdate }: { settings: any, onUpdate: () => vo
                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="new-password" placeholder="Change only if needed..." className="w-full border-4 border-black p-4 text-2xl outline-none" />
             </div>
 
-            <button onClick={handleSave} className="w-full bg-black text-[#dfff00] py-6 text-4xl uppercase font-black hover:bg-[#ff00ff] hover:text-black transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+            <button onClick={handleSave} className="w-full bg-black text-[#d9ff36] py-6 text-4xl uppercase font-black hover:bg-[#ff00ff] hover:text-black transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
                 Save All Settings
             </button>
         </div>

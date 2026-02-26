@@ -87,13 +87,13 @@ export default function Store() {
   };
 
   return (
-    <section id="store" className="py-24 px-4 md:px-8 bg-black text-[#dfff00]">
+    <section id="store" className="py-24 px-4 md:px-8 bg-black text-[#d9ff36]">
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-end mb-16">
           <h2 className="text-8xl md:text-[10vw] leading-none uppercase tracking-tighter font-mono font-black italic">Store</h2>
           <button
             onClick={() => setIsCartOpen(true)}
-            className="bg-[#dfff00] text-black p-4 flex items-center gap-4 border-4 border-white shadow-[6px_6px_0px_0px_#fff] relative group hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
+            className="bg-[#d9ff36] text-black p-4 flex items-center gap-4 border-4 border-white shadow-[6px_6px_0px_0px_#fff] relative group hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
           >
             <ShoppingCart size={32} />
             <span className="text-2xl font-black uppercase">Cart ({cart.reduce((s, i) => s + i.quantity, 0)})</span>
@@ -107,7 +107,7 @@ export default function Store() {
               key={prod.id}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              className="bg-white text-black border-4 border-[#dfff00] shadow-[12px_12px_0px_0px_#dfff00] overflow-hidden flex flex-col group"
+              className="bg-white text-black border-4 border-[#d9ff36] shadow-[12px_12px_0px_0px_#d9ff36] overflow-hidden flex flex-col group"
             >
               <div className="aspect-square relative overflow-hidden bg-gray-100 flex items-center justify-center p-8">
                 <img src={prod.image_url} alt={prod.name} className="max-h-full object-contain group-hover:scale-110 transition-transform duration-500" />
@@ -120,7 +120,7 @@ export default function Store() {
                 <p className="text-lg opacity-60 font-bold uppercase">{prod.description || "Limited edition toxic merch. Wear it or leave it."}</p>
                 <button
                   onClick={() => addToCart(prod)}
-                  className="mt-auto w-full bg-black text-[#dfff00] py-4 text-2xl uppercase font-black hover:bg-[#ff00ff] hover:text-white transition-colors flex items-center justify-center gap-4"
+                  className="mt-auto w-full bg-black text-[#d9ff36] py-4 text-2xl uppercase font-black hover:bg-[#ff00ff] hover:text-white transition-colors flex items-center justify-center gap-4"
                 >
                   <Plus size={24} /> Add To Cart
                 </button>
@@ -141,7 +141,7 @@ export default function Store() {
             whileHover={{ scale: 1.1, rotate: 5 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsCartOpen(true)}
-            className="fixed bottom-6 right-6 z-[60] w-20 h-20 md:w-24 md:h-24 bg-[#dfff00]/80 backdrop-blur-md border-[4px] border-black rounded-full shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex flex-col items-center justify-center group"
+            className="fixed bottom-6 right-6 z-[60] w-20 h-20 md:w-24 md:h-24 bg-[#d9ff36]/80 backdrop-blur-md border-[4px] border-black rounded-full shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex flex-col items-center justify-center group text-black"
           >
             <ShoppingBag size={32} className="group-hover:animate-bounce md:w-10 md:h-10" />
             <span className="text-xs md:text-sm font-black uppercase tracking-tighter -mt-1">Cesta</span>
@@ -169,7 +169,7 @@ export default function Store() {
             />
             <motion.div
               initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }}
-              className="fixed right-0 top-0 h-full w-full md:w-[500px] bg-[#dfff00] text-black z-[101] border-l-8 border-black p-4 md:p-8 flex flex-col"
+              className="fixed right-0 top-0 h-full w-full md:w-[500px] bg-[#d9ff36] text-black z-[101] border-l-8 border-black p-4 md:p-8 flex flex-col"
             >
               <div className="flex justify-between items-center mb-6 md:mb-12">
                 <h2 className="text-3xl md:text-5xl font-black uppercase italic">Your Cart</h2>
@@ -205,7 +205,7 @@ export default function Store() {
                 <button
                   disabled={cart.length === 0}
                   onClick={() => setIsCheckoutOpen(true)}
-                  className="w-full bg-black text-[#dfff00] py-4 md:py-6 text-2xl md:text-3xl uppercase font-black hover:bg-[#ff00ff] hover:text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-[6px_6px_0px_0px_black] md:shadow-[8px_8px_0px_0px_black]"
+                  className="w-full bg-black text-[#d9ff36] py-4 md:py-6 text-2xl md:text-3xl uppercase font-black hover:bg-[#ff00ff] hover:text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-[6px_6px_0px_0px_black] md:shadow-[8px_8px_0px_0px_black]"
                 >
                   Proceed to Checkout
                 </button>
@@ -223,7 +223,7 @@ export default function Store() {
             <motion.form
               onSubmit={handleCheckout}
               initial={{ scale: 0.9, y: 100 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.9, y: 100 }}
-              className="bg-[#dfff00] text-black border-4 md:border-8 border-black p-6 md:p-12 max-w-2xl w-full relative z-[201] shadow-[12px_12px_0px_0px_#ff00ff] md:shadow-[20px_20px_0px_0px_#ff00ff]"
+              className="bg-[#d9ff36] text-black border-4 md:border-8 border-black p-6 md:p-12 max-w-2xl w-full relative z-[201] shadow-[12px_12px_0px_0px_#ff00ff] md:shadow-[20px_20px_0px_0px_#ff00ff]"
             >
               <button type="button" onClick={() => setIsCheckoutOpen(false)} className="absolute top-4 right-4 md:top-6 md:right-6 hover:rotate-90 transition-transform"><X size={32} className="md:w-12 md:h-12" /></button>
               <h2 className="text-3xl md:text-5xl font-black uppercase mb-6 md:mb-8 italic">Final Step</h2>
@@ -237,11 +237,11 @@ export default function Store() {
                   <label className="text-lg md:text-xl font-black uppercase">Your Email</label>
                   <input required type="email" value={customerEmail} onChange={e => setCustomerEmail(e.target.value)} className="w-full border-4 border-black p-3 md:p-4 text-lg md:text-2xl outline-none focus:bg-white" placeholder="YOU@TOXIC.COM" />
                 </div>
-                <div className="p-6 bg-black text-[#dfff00] border-4 border-white mt-8">
+                <div className="p-6 bg-black text-[#d9ff36] border-4 border-white mt-8">
                   <p className="text-xl font-bold uppercase mb-2">Notice:</p>
                   <p className="text-sm uppercase opacity-80">This is a reservation system. Once you checkout, you will receive an email with payment instructions. We don't steal your credit card here, bitch.</p>
                 </div>
-                <button type="submit" className="w-full bg-[#ff00ff] text-white py-4 md:py-6 text-2xl md:text-4xl uppercase font-black hover:bg-black hover:text-[#dfff00] transition-all shadow-[8px_8px_0px_0px_black] md:shadow-[10px_10px_0px_0px_black] mt-4 md:mt-8">
+                <button type="submit" className="w-full bg-[#ff00ff] text-white py-4 md:py-6 text-2xl md:text-4xl uppercase font-black hover:bg-black hover:text-[#d9ff36] transition-all shadow-[8px_8px_0px_0px_black] md:shadow-[10px_10px_0px_0px_black] mt-4 md:mt-8">
                   COMPLETE ORDER
                 </button>
               </div>

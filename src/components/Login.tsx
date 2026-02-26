@@ -34,7 +34,7 @@ export default function Login({ onLogin, onBack }: LoginProps) {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-[#dfff00] p-4 font-mono">
+        <div className="min-h-screen flex items-center justify-center bg-[#d9ff36] p-4 font-mono">
             <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
@@ -64,7 +64,7 @@ export default function Login({ onLogin, onBack }: LoginProps) {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 placeholder="••••••••"
-                                className={`w-full border-4 border-black p-4 text-2xl outline-none focus:bg-[#dfff00]/10 transition-colors ${error ? 'bg-red-100 border-red-500 text-red-500' : 'bg-white'}`}
+                                className={`w-full border-4 border-black p-4 text-2xl outline-none focus:bg-[#d9ff36]/10 transition-colors ${error ? 'bg-red-100 border-red-500 text-red-500' : 'bg-white'}`}
                                 autoFocus
                             />
                             <Lock className="absolute right-4 top-1/2 -translate-y-1/2 opacity-30" />
@@ -74,7 +74,7 @@ export default function Login({ onLogin, onBack }: LoginProps) {
 
                     <button
                         type="submit"
-                        className="w-full bg-black text-[#dfff00] py-4 text-3xl uppercase font-black border-4 border-black hover:bg-[#dfff00] hover:text-black transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,0.3)] active:shadow-none active:translate-x-1 active:translate-y-1"
+                        className="w-full bg-black text-[#d9ff36] py-4 text-3xl uppercase font-black border-4 border-black hover:bg-[#d9ff36] hover:text-black transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,0.3)] active:shadow-none active:translate-x-1 active:translate-y-1"
                     >
                         Unlock Panel
                     </button>

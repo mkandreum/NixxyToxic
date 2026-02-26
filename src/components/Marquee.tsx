@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 
-export default function Marquee({ text, reverse = false, bg = "bg-black", textCol = "text-[#dfff00]" }: { text: string, reverse?: boolean, bg?: string, textCol?: string }) {
+export default function Marquee({ text, reverse = false, bg = "bg-black", textCol = "text-[#d9ff36]" }: { text: string, reverse?: boolean, bg?: string, textCol?: string }) {
   return (
     <div className={`border-y-4 border-black ${bg} ${textCol} overflow-hidden py-4 flex whitespace-nowrap`}>
       <motion.div

@@ -68,7 +68,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
                             {toast.type === 'loading' && (
                                 <div className="w-full h-4 bg-gray-200 border-2 border-black overflow-hidden mt-1 relative">
                                     <motion.div
-                                        className="h-full bg-[#dfff00]"
+                                        className="h-full bg-[#d9ff36]"
                                         initial={{ width: "30%" }}
                                         animate={toast.progress === 0 ? {
                                             x: ["-100%", "350%"],

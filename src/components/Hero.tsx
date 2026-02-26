@@ -53,7 +53,7 @@ export default function Hero() {
           >
             <a
               href="#store"
-              className="group bg-black text-[#dfff00] px-10 py-5 text-2xl uppercase font-black border-4 border-black hover:bg-[#ff00ff] hover:text-white transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center gap-4 hover:translate-x-1 hover:translate-y-1 hover:shadow-none"
+              className="group bg-black text-[#d9ff36] px-10 py-5 text-2xl uppercase font-black border-4 border-black hover:bg-[#ff00ff] hover:text-white transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center gap-4 hover:translate-x-1 hover:translate-y-1 hover:shadow-none"
             >
               <ShoppingBag size={28} />
               Grab Merch
@@ -62,7 +62,7 @@ export default function Hero() {
 
             <a
               href="#gallery"
-              className="bg-white text-black px-10 py-5 text-2xl uppercase font-black border-4 border-black hover:bg-[#dfff00] transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center hover:translate-x-1 hover:translate-y-1 hover:shadow-none"
+              className="bg-white text-black px-10 py-5 text-2xl uppercase font-black border-4 border-black hover:bg-[#d9ff36] transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center hover:translate-x-1 hover:translate-y-1 hover:shadow-none"
             >
               See Life
             </a>
@@ -102,7 +102,7 @@ export default function Hero() {
                 <motion.div
                   animate={{ y: [0, 10, 0] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                  className="absolute -bottom-6 -left-6 bg-[#dfff00] text-black px-6 py-3 border-4 border-black text-2xl font-black uppercase rotate-3 shadow-lg"
+                  className="absolute -bottom-6 -left-6 bg-[#d9ff36] text-black px-6 py-3 border-4 border-black text-2xl font-black uppercase rotate-3 shadow-lg"
                 >
                   BITCH!
                 </motion.div>
