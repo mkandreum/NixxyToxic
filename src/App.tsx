@@ -136,7 +136,7 @@ export default function App() {
           )}
         </AnimatePresence>
 
-        <main className="pt-32 md:pt-36">
+        <main className={currentView === 'home' ? "pt-32 md:pt-36" : "pt-0"}>
           {currentView === 'home' && (
             <>
               <Hero />
