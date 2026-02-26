@@ -94,7 +94,7 @@ export default function Hero() {
                 <motion.div
                   animate={{ y: [0, -10, 0] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute -top-6 -right-6 bg-[#ff00ff] text-white px-6 py-3 border-4 border-black text-2xl font-black uppercase -rotate-6 shadow-lg will-change-transform"
+                  className="absolute -top-6 -right-6 bg-[#ff00ff] text-white px-6 py-3 border-4 border-black text-2xl font-black uppercase -rotate-6 shadow-lg"
                 >
                   Pure Toxic
                 </motion.div>
@@ -102,7 +102,7 @@ export default function Hero() {
                 <motion.div
                   animate={{ y: [0, 10, 0] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                  className="absolute -bottom-6 -left-6 bg-[#dfff00] text-black px-6 py-3 border-4 border-black text-2xl font-black uppercase rotate-3 shadow-lg will-change-transform"
+                  className="absolute -bottom-6 -left-6 bg-[#dfff00] text-black px-6 py-3 border-4 border-black text-2xl font-black uppercase rotate-3 shadow-lg"
                 >
                   BITCH!
                 </motion.div>
@@ -119,9 +119,9 @@ export default function Hero() {
             )}
           </AnimatePresence>
 
-          {/* Abstract shapes behind image - static for performance */}
-          <div className="absolute inset-0 flex items-center justify-center -z-1 opacity-10 pointer-events-none">
-            <div className="w-[120%] h-[120%] border-[20px] border-black rounded-full" />
+          {/* Abstract shapes behind image */}
+          <div className="absolute inset-0 flex items-center justify-center -z-1 opacity-20">
+            <div className="w-[120%] h-[120%] border-[20px] border-black rounded-full animate-spin-slow pointer-events-none" />
           </div>
         </div>
       </div>

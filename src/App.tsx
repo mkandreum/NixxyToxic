@@ -48,9 +48,9 @@ export default function App() {
         <Banners />
 
         {/* Navigation - Floating Pill */}
-        <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[85vw] md:w-fit md:max-w-[90vw] z-50 border-2 md:border-4 border-black rounded-full bg-[#dfff00]/90 flex items-center justify-between overflow-hidden px-5 py-2 md:px-10 md:py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-          <a href="#gallery" className="flex flex-col items-center md:flex-row md:gap-2 text-base sm:text-lg md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black hover:text-[#ff00ff] leading-tight"><span className="text-xl sm:text-2xl md:text-3xl">📸</span><span>Gallery</span></a>
-          <a href="#events" className="flex flex-col items-center md:flex-row md:gap-2 text-base sm:text-lg md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black hover:text-[#ff00ff] leading-tight"><span className="text-xl sm:text-2xl md:text-3xl">🎤</span><span>Shows</span></a>
+        <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[85vw] md:w-fit md:max-w-[90vw] z-50 border-2 md:border-4 border-black rounded-full bg-[#dfff00]/10 backdrop-blur-[1px] flex items-center justify-between overflow-hidden px-5 py-2 md:px-10 md:py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] gap-2 md:gap-6">
+          <a href="#gallery" className="flex flex-col items-center md:flex-row md:gap-2 text-base sm:text-lg md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black hover:text-[#ff00ff] leading-tight flex-shrink-0"><span className="text-xl sm:text-2xl md:text-3xl">📸</span><span>Gallery</span></a>
+          <a href="#events" className="flex flex-col items-center md:flex-row md:gap-2 text-base sm:text-lg md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black hover:text-[#ff00ff] leading-tight flex-shrink-0"><span className="text-xl sm:text-2xl md:text-3xl">🎤</span><span>Shows</span></a>
 
           <a
             href="#"
@@ -59,7 +59,7 @@ export default function App() {
               setCurrentView('home');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="mx-3 md:mx-8 select-none flex items-center justify-center flex-shrink-0 hover:scale-105 transition-transform"
+            className="mx-4 md:mx-12 select-none flex items-center justify-center flex-shrink-0 hover:scale-105 transition-transform"
           >
             {siteSettings.site_logo_url ? (
               <img src={siteSettings.site_logo_url} alt="Logo" className="h-16 sm:h-20 md:h-28 w-auto object-contain drop-shadow-[4px_4px_0px_rgba(0,0,0,1)]" />
@@ -97,8 +97,8 @@ export default function App() {
               initial={{ y: "-100%" }}
               animate={{ y: 0 }}
               exit={{ y: "-100%" }}
-              transition={{ type: "spring", bounce: 0, duration: 0.6 }}
-              className="fixed inset-0 z-40 bg-black text-[#dfff00] pt-32 px-8 flex flex-col gap-8 text-5xl md:text-8xl uppercase tracking-tighter font-black overflow-y-auto pb-12"
+              transition={{ type: "tween", ease: "easeOut", duration: 0.3 }}
+              className="fixed inset-0 z-40 bg-black text-[#dfff00] pt-32 px-8 flex flex-col gap-8 text-5xl md:text-8xl uppercase tracking-tighter font-black overflow-y-auto pb-12 will-change-transform"
             >
               <a href="#gallery" onClick={() => setIsMenuOpen(false)} className="hover:text-[#ff00ff] transition-colors flex items-center gap-6 py-4 border-b-4 border-[#dfff00]/20 hover:border-[#ff00ff] hover:pl-8">
                 <ImageIcon size={64} className="hidden md:block" /> Gallery
