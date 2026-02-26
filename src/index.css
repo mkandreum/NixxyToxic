@@ -69,3 +69,39 @@ html {
     transform: rotate(360deg);
   }
 }
+
+/* GPU-accelerated marquee animations */
+.animate-marquee {
+  animation: marquee 15s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-reverse {
+  animation: marquee-reverse 15s linear infinite;
+  will-change: transform;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+/* Optimize video compositing */
+video {
+  will-change: opacity;
+}

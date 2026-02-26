@@ -60,8 +60,8 @@ export default function Events() {
   return (
     <section id="events" className="py-24 px-4 md:px-8 bg-white text-black border-b-4 border-black relative overflow-hidden">
       {/* Background Decor */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-[#ff00ff]/10 rounded-full blur-3xl -z-1" />
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#00ffff]/10 rounded-full blur-3xl -z-1" />
+      <div className="absolute top-0 right-0 w-64 h-64 bg-[#ff00ff]/10 rounded-full -z-1" />
+      <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#00ffff]/10 rounded-full -z-1" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         <motion.div
@@ -125,7 +125,7 @@ export default function Events() {
       <AnimatePresence>
         {selectedShow && (
           <div className="fixed inset-0 z-[150] flex items-center justify-center p-4">
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setSelectedShow(null)} className="absolute inset-0 bg-black/80 backdrop-blur-md" />
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setSelectedShow(null)} className="absolute inset-0 bg-black/90" />
             <motion.div
               initial={{ scale: 0.9, rotate: -3 }} animate={{ scale: 1, rotate: 0 }} exit={{ scale: 0.9, rotate: 3 }}
               className="bg-[#dfff00] border-[10px] border-black p-10 max-w-xl w-full relative z-[151] shadow-[20px_20px_0px_0px_#ff00ff]"

@@ -38,7 +38,7 @@ export default function Gallery() {
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-multiply pointer-events-none"
+          className="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none"
         />
       )}
 
