@@ -48,9 +48,9 @@ export default function App() {
         <Banners />
 
         {/* Navigation - Floating Pill */}
-        <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[95vw] md:w-fit md:max-w-[90vw] z-50 border-2 md:border-4 border-black rounded-full bg-[#dfff00]/10 backdrop-blur-[1px] flex items-center justify-between overflow-hidden px-5 py-2 md:px-10 md:py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-          <a href="#gallery" className="text-sm sm:text-2xl md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black hover:text-[#ff00ff]">Gallery</a>
-          <a href="#events" className="text-sm sm:text-2xl md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black hover:text-[#ff00ff]">Shows</a>
+        <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[85vw] md:w-fit md:max-w-[90vw] z-50 border-2 md:border-4 border-black rounded-full bg-[#dfff00]/10 backdrop-blur-[1px] flex items-center justify-between overflow-hidden px-5 py-2 md:px-10 md:py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <a href="#gallery" className="text-base sm:text-2xl md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black hover:text-[#ff00ff]">Gallery</a>
+          <a href="#events" className="text-base sm:text-2xl md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black hover:text-[#ff00ff]">Shows</a>
 
           <a
             href="#"
@@ -62,9 +62,9 @@ export default function App() {
             className="mx-3 md:mx-8 select-none flex items-center justify-center flex-shrink-0 hover:scale-105 transition-transform"
           >
             {siteSettings.site_logo_url ? (
-              <img src={siteSettings.site_logo_url} alt="Logo" className="h-12 sm:h-20 md:h-28 w-auto object-contain drop-shadow-[4px_4px_0px_rgba(0,0,0,1)]" />
+              <img src={siteSettings.site_logo_url} alt="Logo" className="h-16 sm:h-20 md:h-28 w-auto object-contain drop-shadow-[4px_4px_0px_rgba(0,0,0,1)]" />
             ) : (
-              <span className="text-xl sm:text-4xl md:text-6xl font-logo leading-none text-center flex flex-col uppercase">
+              <span className="text-2xl sm:text-4xl md:text-6xl font-logo leading-none text-center flex flex-col uppercase">
                 {siteSettings.site_logo_text.split(' ').map((word: string, i: number) => (
                   <span key={i} className={i % 2 === 0 ? "text-black" : "text-[#ff00ff]"}>{word}</span>
                 ))}
@@ -72,7 +72,7 @@ export default function App() {
             )}
           </a>
 
-          <a href="#store" className="text-sm sm:text-2xl md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black hover:text-[#ff00ff]">Store</a>
+          <a href="#store" className="text-base sm:text-2xl md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black hover:text-[#ff00ff]">Store</a>
 
           <button
             onClick={handleMenuClick}
