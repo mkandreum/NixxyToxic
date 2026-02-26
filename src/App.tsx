@@ -45,7 +45,7 @@ export default function App() {
   return (
     <ToastProvider>
       <div className="min-h-screen bg-[#d9ff36] text-black font-mono font-bold selection:bg-black selection:text-[#d9ff36]">
-        <Banners />
+        {currentView === 'home' && <Banners />}
 
         {/* Navigation - Floating Pill */}
         {currentView === 'home' && (

@@ -269,7 +269,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                 </button>
             </aside>
 
-            <main className="flex-1 p-4 md:p-12 overflow-y-auto pt-8 md:pt-12">
+            <main className="flex-1 p-4 md:p-12 overflow-y-auto pt-6 md:pt-12">
                 <header className="mb-6 md:mb-12 flex justify-between items-end border-b-4 border-black pb-4 md:pb-8">
                     <div>
                         <h2 className="text-4xl md:text-6xl uppercase font-black tracking-tighter">
