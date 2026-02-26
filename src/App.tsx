@@ -49,9 +49,9 @@ export default function App() {
 
         {/* Navigation - Floating Pill */}
         {currentView === 'home' && (
-          <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[88vw] md:w-fit md:max-w-[90vw] z-50 border-2 md:border-4 border-black rounded-full bg-[#d9ff36]/15 backdrop-blur-md flex items-center justify-center gap-x-3 md:gap-x-0 px-2 sm:px-6 py-1.5 md:px-10 md:py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-            <a href="#gallery" className="flex flex-col items-center md:flex-row md:gap-2 text-[10px] sm:text-base md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black hover:text-[#ff00ff] leading-none"><span className="text-lg sm:text-xl md:text-3xl">📸</span><span className="hidden sm:inline">Gallery</span></a>
-            <a href="#events" className="flex flex-col items-center md:flex-row md:gap-2 text-[10px] sm:text-base md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black hover:text-[#ff00ff] leading-none"><span className="text-lg sm:text-xl md:text-3xl">🎤</span><span className="hidden sm:inline">Shows</span></a>
+          <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[92vw] md:w-fit md:max-w-[90vw] z-50 border-2 md:border-4 border-black rounded-full bg-[#d9ff36]/15 backdrop-blur-md flex items-center justify-center gap-x-1 sm:gap-x-2 md:gap-x-0 px-2 md:px-10 py-1 md:py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+            <a href="#gallery" className="flex flex-col items-center md:flex-row md:gap-2 text-[9px] sm:text-base md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black hover:text-[#ff00ff] leading-none"><span className="text-lg sm:text-xl md:text-3xl">📸</span><span>Gallery</span></a>
+            <a href="#events" className="flex flex-col items-center md:flex-row md:gap-2 text-[9px] sm:text-base md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black hover:text-[#ff00ff] leading-none"><span className="text-lg sm:text-xl md:text-3xl">🎤</span><span>Shows</span></a>
 
             <a
               href="#"
@@ -63,7 +63,7 @@ export default function App() {
               className="mx-1 sm:mx-4 md:mx-8 select-none flex items-center justify-center flex-shrink-0 hover:scale-105 transition-transform"
             >
               {siteSettings.site_logo_url ? (
-                <img src={siteSettings.site_logo_url} alt="Logo" className="h-[15vw] max-h-20 md:h-28 w-auto object-contain drop-shadow-[4px_4px_0px_rgba(0,0,0,1)]" />
+                <img src={siteSettings.site_logo_url} alt="Logo" className="h-[18vw] max-h-24 md:h-28 w-auto object-contain drop-shadow-[4px_4px_0px_rgba(0,0,0,1)]" />
               ) : (
                 <span className="text-2xl sm:text-4xl md:text-6xl font-logo leading-none text-center flex flex-col uppercase">
                   {siteSettings.site_logo_text.split(' ').map((word: string, i: number) => (
@@ -73,20 +73,20 @@ export default function App() {
               )}
             </a>
 
-            <a href="#store" className="flex flex-col items-center md:flex-row md:gap-2 text-[10px] sm:text-base md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black hover:text-[#ff00ff] leading-none"><span className="text-lg sm:text-xl md:text-3xl">🛒</span><span className="hidden sm:inline">Store</span></a>
+            <a href="#store" className="flex flex-col items-center md:flex-row md:gap-2 text-[9px] sm:text-base md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black hover:text-[#ff00ff] leading-none"><span className="text-lg sm:text-xl md:text-3xl">🛒</span><span>Store</span></a>
 
             <button
               onClick={handleMenuClick}
-              className="w-8 h-5 sm:w-10 sm:h-6 flex-shrink-0 cursor-pointer group flex flex-col justify-between ml-1"
+              className="w-7 h-4 sm:w-10 sm:h-6 flex-shrink-0 cursor-pointer group flex flex-col justify-between ml-1"
               aria-label="Menu"
             >
               <motion.span
-                animate={isMenuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-                className="w-full h-[3px] sm:h-[4px] bg-black block origin-center group-hover:bg-[#ff00ff]"
+                animate={isMenuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
+                className="w-full h-[2.5px] sm:h-[4px] bg-black block origin-center group-hover:bg-[#ff00ff]"
               />
               <motion.span
-                animate={isMenuOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
-                className="w-full h-[3px] sm:h-[4px] bg-black block origin-center group-hover:bg-[#ff00ff]"
+                animate={isMenuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
+                className="w-full h-[2.5px] sm:h-[4px] bg-black block origin-center group-hover:bg-[#ff00ff]"
               />
             </button>
           </nav>
