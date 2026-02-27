@@ -15,14 +15,20 @@ body {
   font-family: var(--font-mono);
   font-weight: bold;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 html {
   scroll-behavior: smooth;
   -ms-overflow-style: none;
-  /* IE and Edge */
   scrollbar-width: none;
-  /* Firefox */
+}
+
+/* Glassmorphism support for Safari/iOS */
+.glass {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .neon-glow-pink {
@@ -39,12 +45,26 @@ html {
 
 .signature-toxic {
   color: #ff00ff;
-  -webkit-text-stroke: 4px black;
+  -webkit-text-stroke: 1.5px black;
+  /* Reducimos el stroke para que en iOS no se coma la letra */
   paint-order: stroke fill;
   text-shadow:
-    0 0 10px #ff00ff,
-    0 0 20px #ff00ff,
-    10px 10px 0px rgba(0, 0, 0, 1);
+    0 0 15px rgba(255, 0, 255, 0.8),
+    0 0 30px rgba(255, 0, 255, 0.4),
+    8px 8px 0px rgba(0, 0, 0, 1);
+  /* Usamos un filtro drop-shadow para el glow para que sea más "punchy" en Safari */
+  filter: drop-shadow(0 0 10px rgba(255, 0, 255, 0.5));
+}
+
+/* Estilo para desktop con stroke más fuerte */
+@media (min-width: 768px) {
+  .signature-toxic {
+    -webkit-text-stroke: 4px black;
+    text-shadow:
+      0 0 20px rgba(255, 0, 255, 0.8),
+      0 0 40px rgba(255, 0, 255, 0.4),
+      12px 12px 0px rgba(0, 0, 0, 1);
+  }
 }
 
 .glitch-text {

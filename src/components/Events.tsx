@@ -125,7 +125,7 @@ export default function Events() {
       <AnimatePresence>
         {selectedShow && (
           <div className="fixed inset-0 z-[150] flex items-center justify-center p-4">
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setSelectedShow(null)} className="absolute inset-0 bg-black/80 backdrop-blur-md" />
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setSelectedShow(null)} className="absolute inset-0 bg-black/80 glass" />
             <motion.div
               initial={{ scale: 0.9, rotate: -3 }} animate={{ scale: 1, rotate: 0 }} exit={{ scale: 0.9, rotate: 3 }}
               className="bg-[#dfff00] border-[10px] border-black p-10 max-w-xl w-full relative z-[151] shadow-[20px_20px_0px_0px_#ff00ff]"

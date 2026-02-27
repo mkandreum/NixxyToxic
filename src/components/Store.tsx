@@ -141,7 +141,7 @@ export default function Store() {
             whileHover={{ scale: 1.1, rotate: 5 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsCartOpen(true)}
-            className="fixed bottom-6 right-6 z-[60] w-20 h-20 md:w-24 md:h-24 bg-[#d9ff36]/80 backdrop-blur-md border-[4px] border-black rounded-full shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex flex-col items-center justify-center group text-black"
+            className="fixed bottom-6 right-6 z-[60] w-20 h-20 md:w-24 md:h-24 bg-[#d9ff36]/80 glass border-[4px] border-black rounded-full shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex flex-col items-center justify-center group text-black"
           >
             <ShoppingBag size={32} className="group-hover:animate-bounce md:w-10 md:h-10" />
             <span className="text-xs md:text-sm font-black uppercase tracking-tighter -mt-1">Cesta</span>
@@ -165,7 +165,7 @@ export default function Store() {
             <motion.div
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               onClick={() => setIsCartOpen(false)}
-              className="fixed inset-0 bg-black/80 backdrop-blur-md z-[100]"
+              className="fixed inset-0 bg-black/80 glass z-[100]"
             />
             <motion.div
               initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }}
