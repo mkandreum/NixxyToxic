@@ -101,26 +101,30 @@ app.post('/api/gallery/reorder', authenticate, (req, res) => {
     res.sendStatus(200);
 });
 
-app.post('/api/gallery', authenticate, upload.single('photo'), async (req, res) => {
-    if (!req.file) return res.status(400).send('No file uploaded');
+app.post('/api/gallery', authenticate, upload.array('photos', 10), async (req, res) => {
+    const files = req.files as Express.Multer.File[];
+    if (!files || files.length === 0) return res.status(400).send('No files uploaded');
 
-    const filename = `gallery-${Date.now()}.webp`;
-    const filepath = path.join(uploadsDir, filename);
+    const results = [];
+    for (const file of files) {
+        const filename = `gallery-${Date.now()}-${Math.round(Math.random() * 1E9)}.webp`;
+        const filepath = path.join(uploadsDir, filename);
 
-    try {
-        await sharp(req.file.buffer)
-            .webp({ quality: 80 })
-            .toFile(filepath);
+        try {
+            await sharp(file.buffer)
+                .webp({ quality: 80 })
+                .toFile(filepath);
 
-        const url = `/uploads/${filename}`;
-        const stmt = db.prepare('INSERT INTO gallery (url, caption) VALUES (?, ?)');
-        const info = stmt.run(url, req.body.caption || '');
-        logActivity('IMAGE_UPLOAD', `Uploaded new image to gallery: ${url}`);
-        res.json({ id: info.lastInsertRowid, url });
-    } catch (err) {
-        console.error("Sharp error:", err);
-        res.status(500).send('Error processing image');
+            const url = `/uploads/${filename}`;
+            const stmt = db.prepare('INSERT INTO gallery (url, caption) VALUES (?, ?)');
+            const info = stmt.run(url, req.body.caption || '');
+            logActivity('IMAGE_UPLOAD', `Uploaded image: ${url}`);
+            results.push({ id: info.lastInsertRowid, url });
+        } catch (err) {
+            console.error("Sharp error:", err);
+        }
     }
+    res.json(results);
 });
 
 app.post('/api/settings/gallery-bg', authenticate, upload.single('video'), (req, res) => {

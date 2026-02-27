@@ -454,15 +454,17 @@ function GalleryTab({ items, onUpdate, openConfirm }: { items: any[], onUpdate: 
     };
 
     const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
-        const toastId = showToast("Optimizing photo...", "loading");
+        const files = e.target.files;
+        if (!files || files.length === 0) return;
+        const toastId = showToast(`Optimizing ${files.length} photos...`, "loading");
         const formData = new FormData();
-        formData.append('photo', file);
+        for (let i = 0; i < files.length; i++) {
+            formData.append('photos', files[i]);
+        }
         try {
             await toxicFetch('/api/gallery', { method: 'POST', body: formData });
             onUpdate();
-            showToast("Uploaded!", "success");
+            showToast(`${files.length} Photo(s) uploaded!`, "success");
         } finally {
             hideToast(toastId);
         }
@@ -510,7 +512,7 @@ function GalleryTab({ items, onUpdate, openConfirm }: { items: any[], onUpdate: 
                 </div>
             ))}
             <label className="border-4 border-dashed border-black aspect-square flex flex-col items-center justify-center gap-2 hover:bg-black/5 transition-colors cursor-pointer bg-white">
-                <input id="gallery-upload-input" type="file" className="hidden" onChange={handleUpload} />
+                <input id="gallery-upload-input" type="file" className="hidden" multiple onChange={handleUpload} />
                 <Upload size={32} />
                 <span className="uppercase font-black">Upload</span>
             </label>
