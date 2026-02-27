@@ -56,7 +56,7 @@ export default function Hero() {
                 href={settings.instagram_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group bg-[#ff00ff] text-white px-10 py-5 text-2xl uppercase font-black border-4 border-black hover:bg-black hover:text-[#ff00ff] transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center gap-4 hover:translate-x-1 hover:translate-y-1 hover:shadow-none"
+                className="group bg-[#ff00ff] text-white px-6 md:px-10 py-4 md:py-5 text-xl md:text-2xl uppercase font-black border-4 border-black hover:bg-black hover:text-[#ff00ff] transition-all shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center gap-4 hover:translate-x-1 hover:translate-y-1 hover:shadow-none"
               >
                 <Instagram size={28} />
                 Instagram
@@ -66,7 +66,7 @@ export default function Hero() {
 
             <a
               href="#store"
-              className="group bg-black text-[#d9ff36] px-10 py-5 text-2xl uppercase font-black border-4 border-black hover:bg-[#ff00ff] hover:text-white transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center gap-4 hover:translate-x-1 hover:translate-y-1 hover:shadow-none"
+              className="group bg-black text-[#d9ff36] px-6 md:px-10 py-4 md:py-5 text-xl md:text-2xl uppercase font-black border-4 border-black hover:bg-[#ff00ff] hover:text-white transition-all shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center gap-4 hover:translate-x-1 hover:translate-y-1 hover:shadow-none"
             >
               <ShoppingBag size={28} />
               Grab Merch
@@ -75,7 +75,7 @@ export default function Hero() {
 
             <a
               href="#gallery"
-              className="bg-white text-black px-10 py-5 text-2xl uppercase font-black border-4 border-black hover:bg-[#d9ff36] transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center hover:translate-x-1 hover:translate-y-1 hover:shadow-none"
+              className="bg-white text-black px-6 md:px-10 py-4 md:py-5 text-xl md:text-2xl uppercase font-black border-4 border-black hover:bg-[#d9ff36] transition-all shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center hover:translate-x-1 hover:translate-y-1 hover:shadow-none"
             >
               See Life
             </a>

@@ -262,7 +262,7 @@ export default function Store() {
             <motion.form
               onSubmit={handleCheckout}
               initial={{ scale: 0.9, y: 100 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.9, y: 100 }}
-              className="bg-[#d9ff36] text-black border-4 md:border-8 border-black p-6 md:p-12 max-w-2xl w-full relative z-[201] shadow-[12px_12px_0px_0px_#ff00ff] md:shadow-[20px_20px_0px_0px_#ff00ff]"
+              className="bg-[#d9ff36] text-black border-4 md:border-8 border-black p-4 md:p-12 max-w-2xl w-full max-h-[90vh] overflow-y-auto relative z-[201] shadow-[12px_12px_0px_0px_#ff00ff] md:shadow-[20px_20px_0px_0px_#ff00ff]"
             >
               <button type="button" onClick={() => setIsCheckoutOpen(false)} className="absolute top-4 right-4 md:top-6 md:right-6 hover:rotate-90 transition-transform"><X size={32} className="md:w-12 md:h-12" /></button>
               <h2 className="text-3xl md:text-5xl font-black uppercase mb-6 md:mb-8 italic">Final Step</h2>
@@ -305,7 +305,7 @@ export default function Store() {
                     <span className="text-4xl md:text-6xl font-black italic">{finalTotal.toFixed(2)}€</span>
                   </div>
                 </div>
-                <div className="p-6 bg-black text-[#d9ff36] border-4 border-white mt-8">
+                <div className="p-4 md:p-6 bg-black text-[#d9ff36] border-4 border-white mt-4 md:mt-8">
                   <p className="text-xl font-bold uppercase mb-2">Notice:</p>
                   <p className="text-sm uppercase opacity-80">This is a reservation system. Once you checkout, you will receive an email with payment instructions. We don't steal your credit card here, bitch.</p>
                 </div>

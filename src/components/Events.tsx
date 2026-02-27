@@ -153,12 +153,12 @@ export default function Events() {
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setSelectedShow(null)} className="absolute inset-0 bg-black/80 glass" />
             <motion.div
               initial={{ scale: 0.9, rotate: -3 }} animate={{ scale: 1, rotate: 0 }} exit={{ scale: 0.9, rotate: 3 }}
-              className="bg-[#dfff00] border-[10px] border-black p-10 max-w-xl w-full relative z-[151] shadow-[20px_20px_0px_0px_#ff00ff]"
+              className="bg-[#dfff00] border-[6px] md:border-[10px] border-black p-6 md:p-10 max-w-xl w-full max-h-[90vh] overflow-y-auto relative z-[151] shadow-[12px_12px_0px_0px_#ff00ff] md:shadow-[20px_20px_0px_0px_#ff00ff]"
             >
               <button onClick={() => setSelectedShow(null)} className="absolute top-6 right-6 hover:rotate-90 transition-transform"><X size={48} /></button>
 
-              <h2 className="text-5xl font-black uppercase mb-2">Buy Tickets</h2>
-              <p className="text-2xl font-bold uppercase mb-8 opacity-60">{selectedShow.city} • {selectedShow.venue}</p>
+              <h2 className="text-3xl md:text-5xl font-black uppercase mb-1 md:mb-2">Buy Tickets</h2>
+              <p className="text-xl md:text-2xl font-bold uppercase mb-4 md:mb-8 opacity-60">{selectedShow.city} • {selectedShow.venue}</p>
 
               <form onSubmit={handleTicketPurchase} className="space-y-6">
                 <div className="space-y-2">
