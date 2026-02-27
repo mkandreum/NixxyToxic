@@ -330,7 +330,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                     {activeTab === 'coupons' && <CouponsTab items={data.coupons} onUpdate={refreshData} openForm={openForm} openConfirm={openConfirm} />}
                     {activeTab === 'gallery' && <GalleryTab items={data.gallery} onUpdate={refreshData} openConfirm={openConfirm} />}
                     {activeTab === 'events' && <EventsTab items={data.events} onUpdate={refreshData} openConfirm={openConfirm} openForm={openForm} />}
-                    {activeTab === 'banners' && <BannersTab items={data.banners} onUpdate={refreshData} openConfirm={openConfirm} />}
+                    {activeTab === 'banners' && <BannersTab items={data.banners} onUpdate={refreshData} openConfirm={openConfirm} openForm={openForm} />}
                     {activeTab === 'store' && <StoreTab items={data.products} onUpdate={refreshData} openConfirm={openConfirm} openForm={openForm} />}
                     {activeTab === 'orders' && <OrdersTab items={data.orders} onUpdate={refreshData} openConfirm={openConfirm} />}
                     {activeTab === 'smtp' && <SMTPTab smtp={data.smtp} onUpdate={refreshData} />}
@@ -1080,7 +1080,7 @@ function SettingsTab({ settings, onUpdate }: { settings: any, onUpdate: () => vo
     );
 }
 
-function BannersTab({ items, onUpdate, openConfirm }: { items: any[], onUpdate: () => void, openConfirm: any }) {
+function BannersTab({ items, onUpdate, openConfirm, openForm }: { items: any[], onUpdate: () => void, openConfirm: any, openForm: any }) {
     const { showToast } = useToast();
     const toggleActive = async (id: number, current: number) => {
         await toxicFetch(`/api/banners/${id}`, {
@@ -1113,16 +1113,37 @@ function BannersTab({ items, onUpdate, openConfirm }: { items: any[], onUpdate: 
                         </div>
                         <p className="text-xl font-black uppercase">{banner.text}</p>
                     </div>
-                    <div className="flex gap-4">
+                    <div className="flex gap-2 md:gap-4">
+                        <button
+                            onClick={() => {
+                                openForm("Edit Banner", [
+                                    { key: 'text', label: 'Banner Text', type: 'text', value: banner.text },
+                                    { key: 'bg_color', label: 'BG Color (Hex)', type: 'text', value: banner.bg_color },
+                                    { key: 'text_color', label: 'Text Color (Hex/Name)', type: 'text', value: banner.text_color }
+                                ], async (formData) => {
+                                    showToast("Saving banner...", "loading");
+                                    await toxicFetch(`/api/banners/${banner.id}`, {
+                                        method: 'PUT',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({ ...formData, active: banner.active })
+                                    });
+                                    onUpdate();
+                                    showToast("Banner updated!", "success");
+                                });
+                            }}
+                            className="p-3 md:p-4 border-4 border-black hover:bg-black hover:text-[#d9ff36] transition-colors"
+                        >
+                            <Edit size={24} />
+                        </button>
                         <button
                             onClick={() => toggleActive(banner.id, banner.active)}
-                            className={`p-4 border-4 border-black font-black uppercase ${banner.active ? 'bg-green-400' : 'bg-gray-200 opacity-50'}`}
+                            className={`p-3 md:p-4 border-4 border-black font-black uppercase text-xs md:text-base ${banner.active ? 'bg-green-400' : 'bg-gray-200 opacity-50'}`}
                         >
                             {banner.active ? 'Active' : 'Hidden'}
                         </button>
                         <button
                             onClick={() => handleDelete(banner.id)}
-                            className="p-4 border-4 border-black hover:bg-red-500 hover:text-white transition-colors"
+                            className="p-3 md:p-4 border-4 border-black hover:bg-red-500 hover:text-white transition-colors"
                         >
                             <Trash2 size={24} />
                         </button>

@@ -497,8 +497,15 @@ app.delete('/api/banners/:id', authenticate, (req, res) => {
 });
 
 app.put('/api/banners/:id', authenticate, (req, res) => {
-    const { active } = req.body;
-    db.prepare('UPDATE banners SET active = ? WHERE id = ?').run(active, req.params.id);
+    const { active, text, bg_color, text_color } = req.body;
+    if (active !== undefined && text === undefined) {
+        // Just toggling active
+        db.prepare('UPDATE banners SET active = ? WHERE id = ?').run(active, req.params.id);
+    } else {
+        // Full update
+        db.prepare('UPDATE banners SET text = ?, bg_color = ?, text_color = ?, active = ? WHERE id = ?')
+            .run(text, bg_color, text_color, active !== undefined ? active : 1, req.params.id);
+    }
     res.sendStatus(200);
 });
 
