@@ -314,7 +314,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                         </h2>
                         <p className="text-sm md:text-xl uppercase opacity-50">Manage your toxic empire</p>
                     </div>
-                    {['gallery', 'events', 'banners', 'store'].includes(activeTab) && (
+                    {['gallery', 'events', 'banners', 'store', 'coupons'].includes(activeTab) && (
                         <button
                             onClick={handleAddNew}
                             className="bg-black text-white px-6 py-3 text-xl uppercase font-black flex items-center gap-2 hover:bg-[#ff00ff] hover:text-black transition-colors shadow-[6px_6px_0px_0px_#000000]"
