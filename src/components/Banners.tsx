@@ -41,7 +41,7 @@ export default function Banners() {
                             {/* Marquee Wrapper */}
                             <motion.div
                                 animate={{ x: ["0%", "-50%"] }}
-                                transition={{ repeat: Infinity, ease: "linear", duration: 12 }}
+                                transition={{ repeat: Infinity, ease: "linear", duration: 25 }}
                                 className="flex whitespace-nowrap items-center pr-12"
                             >
                                 {[...Array(12)].map((_, i) => (
