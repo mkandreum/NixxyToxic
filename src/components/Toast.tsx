@@ -48,7 +48,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
     return (
         <ToastContext.Provider value={{ showToast, updateToast, hideToast }}>
             {children}
-            <div className="fixed bottom-8 right-8 z-[200] flex flex-col gap-4 min-w-[320px]">
+            <div className="fixed bottom-32 md:bottom-40 right-4 md:right-8 z-[200] flex flex-col gap-4 min-w-[280px] md:min-w-[320px] pointer-events-none">
                 <AnimatePresence>
                     {toasts.map((toast) => (
                         <motion.div
@@ -56,7 +56,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
                             initial={{ x: 100, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             exit={{ x: 100, opacity: 0 }}
-                            className="bg-white border-4 border-black p-4 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex flex-col gap-2"
+                            className="bg-white/80 glass border-4 border-black p-4 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex flex-col gap-2 pointer-events-auto"
                         >
                             <div className="flex items-center gap-3">
                                 {toast.type === 'loading' && <Loader2 className="animate-spin text-blue-500" size={24} />}

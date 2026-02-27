@@ -62,8 +62,13 @@ export default function Gallery() {
                 key={i}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: (i % 3) * 0.1 }}
+                viewport={{ once: true, margin: "100px" }}
+                transition={{
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 20,
+                  delay: (i % 3) * 0.1,
+                }}
                 className={`border-4 border-black p-3 bg-white transform hover:z-10 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] transition-shadow duration-300 ${i % 2 === 0 ? 'md:translate-y-8' : ''}`}
               >
                 <div className="overflow-hidden border-2 border-black bg-gray-50 aspect-[4/5] md:aspect-auto">
@@ -72,8 +77,6 @@ export default function Gallery() {
                     alt={`Nixxy Toxic ${i}`}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                     loading="lazy"
-                    onLoad={(e) => (e.currentTarget.style.opacity = "1")}
-                    style={{ opacity: 0, transition: "opacity 0.5s" }}
                     referrerPolicy="no-referrer"
                   />
                 </div>

@@ -36,8 +36,8 @@ export default function Banners() {
                         animate={{ y: 0, opacity: 1 }}
                         exit={{ y: -50, opacity: 0 }}
                         transition={{ delay: i * 0.2 }}
-                        className="w-full py-2 px-4 shadow-lg flex justify-center items-center pointer-events-auto border-b-2 border-black"
-                        style={{ backgroundColor: banner.bg_color, color: banner.text_color }}
+                        className="w-full py-2 px-4 shadow-lg flex justify-center items-center pointer-events-auto border-b-2 border-black glass"
+                        style={{ backgroundColor: `${banner.bg_color}cc`, color: banner.text_color }}
                     >
                         <p className="text-sm md:text-lg uppercase font-black text-center tracking-widest px-8">
                             {banner.text}
