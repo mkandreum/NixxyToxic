@@ -82,7 +82,7 @@ export default function App() {
 
             <a href="#store" className="flex flex-col items-center md:flex-row md:gap-2 text-base md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black hover:text-[#ff00ff] leading-none">
               <span className="text-xl sm:text-xl md:text-3xl">🛒</span>
-              <span>Store</span>
+              <span>Merch</span>
             </a>
 
             <button
@@ -119,7 +119,7 @@ export default function App() {
               {[
                 { href: "#gallery", label: "Gallery", icon: ImageIcon, color: "hover:text-[#ff00ff]" },
                 { href: "#events", label: "Shows", icon: Calendar, color: "hover:text-[#00ff00]" },
-                { href: "#store", label: "Store", icon: ShoppingCart, color: "hover:text-[#00ffff]" }
+                { href: "#store", label: "Merch", icon: ShoppingCart, color: "hover:text-[#00ffff]" }
               ].map((item, i) => (
                 <motion.a
                   key={item.label}
