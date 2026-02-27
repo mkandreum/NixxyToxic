@@ -164,7 +164,7 @@ export default function App() {
 
         <footer className="border-t-4 border-black bg-black text-[#d9ff36] p-12 md:p-24 text-center flex flex-col items-center gap-8">
           {siteSettings?.site_logo_url ? (
-            <img src={siteSettings.site_logo_url} alt="Logo" className="h-24 md:h-48 w-auto object-contain brightness-0 invert" />
+            <img src={siteSettings.site_logo_url} alt="Logo" className="h-24 md:h-48 w-auto object-contain" />
           ) : (
             <h2 className="text-6xl md:text-9xl font-logo text-[#ff00ff] drop-shadow-[4px_4px_0px_#d9ff36]">
               {siteSettings?.site_logo_text || 'Nixxy Toxic'}

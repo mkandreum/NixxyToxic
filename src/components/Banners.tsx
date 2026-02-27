@@ -35,27 +35,32 @@ export default function Banners() {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        className="w-full relative overflow-hidden group border-b-4 border-black"
+                        className="w-full relative overflow-hidden group border-b-2 md:border-b-4 border-black"
                         style={{ backgroundColor: banner.bg_color, color: banner.text_color }}
                     >
-                        <div className="flex items-center justify-center py-4 px-12 min-h-[64px] relative">
-                            {/* Animated Background Element */}
+                        <div className="flex items-center py-2 px-4 min-h-[40px] relative overflow-hidden">
+                            {/* Marquee Wrapper */}
                             <motion.div
-                                animate={{ x: ['-200%', '200%'] }}
-                                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                                className="absolute inset-0 opacity-10 bg-white skew-x-[30deg]"
-                            />
-
-                            <p className="text-xl md:text-3xl uppercase font-black text-center tracking-tighter italic leading-none relative z-10 px-10">
-                                {banner.text}
-                            </p>
-
-                            <button
-                                onClick={() => setBanners(prev => prev.filter(b => b.id !== banner.id))}
-                                className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 border-2 border-current rounded-full flex items-center justify-center hover:bg-black hover:text-[#d9ff36] transition-all z-20 group-hover:rotate-90"
+                                animate={{ x: ["0%", "-50%"] }}
+                                transition={{ repeat: Infinity, ease: "linear", duration: 15 }}
+                                className="flex whitespace-nowrap items-center pr-12"
                             >
-                                <X size={24} />
-                            </button>
+                                {[...Array(10)].map((_, i) => (
+                                    <span key={i} className="text-lg md:text-2xl uppercase font-black tracking-tighter italic mr-8">
+                                        {banner.text} •
+                                    </span>
+                                ))}
+                            </motion.div>
+
+                            {/* Close button - Fixed on top of marquee */}
+                            <div className="absolute right-0 top-0 bottom-0 w-16 flex items-center justify-center bg-gradient-to-l from-inherit via-inherit to-transparent z-20">
+                                <button
+                                    onClick={() => setBanners(prev => prev.filter(b => b.id !== banner.id))}
+                                    className="w-8 h-8 border-2 border-current rounded-full flex items-center justify-center hover:bg-black hover:text-[#d9ff36] transition-all group-hover:rotate-90"
+                                >
+                                    <X size={18} />
+                                </button>
+                            </div>
                         </div>
                     </motion.div>
                 ))}
