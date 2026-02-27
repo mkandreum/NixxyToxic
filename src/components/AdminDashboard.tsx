@@ -347,21 +347,21 @@ function OverviewTab({ data }: { data: any }) {
     return (
         <div className="space-y-12 pb-20">
             {/* Top Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="border-4 border-black p-8 shadow-[8px_8px_0px_0px_#000] bg-[#d9ff36] group overflow-hidden relative">
-                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-150 transition-transform"><BarChart3 size={100} /></div>
-                    <p className="text-xl uppercase font-black mb-2 opacity-60 relative z-10">Total Revenue</p>
-                    <p className="text-6xl font-black italic relative z-10">{data.totalRevenue?.toFixed(2) || 0}€</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+                <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="border-4 border-black p-4 md:p-8 shadow-[6px_6px_0px_0px_#000] md:shadow-[8px_8px_0px_0px_#000] bg-[#d9ff36] group overflow-hidden relative">
+                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-150 transition-transform"><BarChart3 size={60} className="md:w-[100px] md:h-[100px]" /></div>
+                    <p className="text-sm md:text-xl uppercase font-black mb-1 md:mb-2 opacity-60 relative z-10">Total Revenue</p>
+                    <p className="text-4xl md:text-6xl font-black italic relative z-10">{data.totalRevenue?.toFixed(2) || 0}€</p>
                 </motion.div>
-                <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.1 }} className="border-4 border-black p-8 shadow-[8px_8px_0px_0px_#000] bg-white text-black relative group">
-                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-150 transition-transform"><ShoppingBag size={100} /></div>
-                    <p className="text-xl uppercase font-black mb-2 opacity-40 relative z-10">Total Orders</p>
-                    <p className="text-6xl font-black relative z-10">{data.orderCount || 0}</p>
+                <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.1 }} className="border-4 border-black p-4 md:p-8 shadow-[6px_6px_0px_0px_#000] md:shadow-[8px_8px_0px_0px_#000] bg-white text-black relative group">
+                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-150 transition-transform"><ShoppingBag size={60} className="md:w-[100px] md:h-[100px]" /></div>
+                    <p className="text-sm md:text-xl uppercase font-black mb-1 md:mb-2 opacity-40 relative z-10">Total Orders</p>
+                    <p className="text-4xl md:text-6xl font-black relative z-10">{data.orderCount || 0}</p>
                 </motion.div>
-                <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }} className="border-4 border-black p-8 shadow-[8px_8px_0px_0px_#000] bg-black text-[#d9ff36] relative group overflow-hidden">
-                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-150 transition-transform"><Ticket size={100} /></div>
-                    <p className="text-xl uppercase font-black mb-2 opacity-60 relative z-10">Active Merch</p>
-                    <p className="text-6xl font-black relative z-10">{data.productCount || 0}</p>
+                <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }} className="border-4 border-black p-4 md:p-8 shadow-[6px_6px_0px_0px_#000] md:shadow-[8px_8px_0px_0px_#000] bg-black text-[#d9ff36] relative group overflow-hidden sm:col-span-2 lg:col-span-1">
+                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-150 transition-transform"><Ticket size={60} className="md:w-[100px] md:h-[100px]" /></div>
+                    <p className="text-sm md:text-xl uppercase font-black mb-1 md:mb-2 opacity-60 relative z-10">Active Merch</p>
+                    <p className="text-4xl md:text-6xl font-black relative z-10">{data.productCount || 0}</p>
                 </motion.div>
             </div>
 
@@ -400,18 +400,18 @@ function OverviewTab({ data }: { data: any }) {
             {/* Bottom Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Best Sellers */}
-                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="border-4 border-black p-8 bg-white shadow-[12px_12px_0px_0px_black]">
-                    <h3 className="text-3xl font-black uppercase mb-8 italic border-b-4 border-black pb-4 flex items-center gap-4">
-                        <Star className="text-[#ff00ff]" fill="currentColor" /> Top Merch
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="border-4 border-black p-4 md:p-8 bg-white shadow-[8px_8px_0px_0px_black] md:shadow-[12px_12px_0px_0px_black]">
+                    <h3 className="text-xl md:text-3xl font-black uppercase mb-4 md:mb-8 italic border-b-4 border-black pb-4 flex items-center gap-4">
+                        <Star className="text-[#ff00ff] w-6 h-6 md:w-8 md:h-8" fill="currentColor" /> Top Merch
                     </h3>
                     <div className="space-y-4">
                         {data.productStats && data.productStats.length > 0 ? (
                             data.productStats.sort((a: any, b: any) => b.qty - a.qty).slice(0, 5).map((p: any, i: number) => (
-                                <div key={i} className="flex items-center justify-between border-b-2 border-black pb-2 group hover:translate-x-2 transition-transform">
-                                    <span className="text-xl font-black uppercase italic group-hover:text-[#ff00ff]">{p.name}</span>
-                                    <div className="flex items-center gap-4">
-                                        <span className="text-sm font-black opacity-40">{Math.round((p.qty / data.orderCount) * 100 || 0)}% of orders</span>
-                                        <span className="bg-black text-[#d9ff36] px-4 py-1 font-mono font-black shadow-[4px_4px_0px_0px_#ff00ff]">{p.qty} SOLD</span>
+                                <div key={i} className="flex flex-col sm:flex-row sm:items-center justify-between border-b-2 border-black pb-2 gap-2 group hover:translate-x-2 transition-transform">
+                                    <span className="text-lg md:text-xl font-black uppercase italic group-hover:text-[#ff00ff] truncate">{p.name}</span>
+                                    <div className="flex items-center justify-between sm:justify-end gap-4">
+                                        <span className="text-[10px] md:text-sm font-black opacity-40">{Math.round((p.qty / data.orderCount) * 100 || 0)}% share</span>
+                                        <span className="bg-black text-[#d9ff36] px-3 py-1 text-sm md:text-base font-mono font-black shadow-[3px_3px_0px_0px_#ff00ff] md:shadow-[4px_4px_0px_0px_#ff00ff] whitespace-nowrap">{p.qty} SOLD</span>
                                     </div>
                                 </div>
                             ))
@@ -422,17 +422,17 @@ function OverviewTab({ data }: { data: any }) {
                 </motion.div>
 
                 {/* Performance Summary */}
-                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="border-4 border-black p-8 bg-[#d9ff36] shadow-[12px_12px_0px_0px_black] flex flex-col justify-center text-center">
-                    <h3 className="text-4xl font-black uppercase mb-4 italic tracking-tighter">Toxic Performance</h3>
-                    <p className="text-xl font-bold uppercase mb-8 opacity-60">Your empire is growing, Bitch!</p>
-                    <div className="grid grid-cols-2 gap-4">
-                        <div className="border-4 border-black p-4 bg-white">
-                            <p className="text-xs font-black uppercase opacity-40">Avg Order</p>
-                            <p className="text-3xl font-black italic">{(data.totalRevenue / data.orderCount || 0).toFixed(2)}€</p>
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="border-4 border-black p-4 md:p-8 bg-[#d9ff36] shadow-[8px_8px_0px_0px_black] md:shadow-[12px_12px_0px_0px_black] flex flex-col justify-center text-center">
+                    <h3 className="text-2xl md:text-4xl font-black uppercase mb-2 md:mb-4 italic tracking-tighter leading-none">Toxic Performance</h3>
+                    <p className="text-sm md:text-xl font-bold uppercase mb-4 md:mb-8 opacity-60 italic">Your empire is growing, Bitch!</p>
+                    <div className="grid grid-cols-2 gap-2 md:gap-4">
+                        <div className="border-4 border-black p-3 md:p-4 bg-white">
+                            <p className="text-[10px] md:text-xs font-black uppercase opacity-40 mb-1">Avg Order</p>
+                            <p className="text-xl md:text-3xl font-black italic">{(data.totalRevenue / data.orderCount || 0).toFixed(2)}€</p>
                         </div>
-                        <div className="border-4 border-black p-4 bg-white">
-                            <p className="text-xs font-black uppercase opacity-40">Top Sale</p>
-                            <p className="text-3xl font-black italic">{Math.max(...(data.dailySales?.map((s: any) => s.amount) || [0])).toFixed(2)}€</p>
+                        <div className="border-4 border-black p-3 md:p-4 bg-white">
+                            <p className="text-[10px] md:text-xs font-black uppercase opacity-40 mb-1">Top Sale</p>
+                            <p className="text-xl md:text-3xl font-black italic">{Math.max(...(data.dailySales?.map((s: any) => s.amount) || [0])).toFixed(2)}€</p>
                         </div>
                     </div>
                 </motion.div>
