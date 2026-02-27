@@ -49,9 +49,15 @@ export default function App() {
 
         {/* Navigation - Floating Pill */}
         {currentView === 'home' && (
-          <nav className="sticky top-4 w-[92vw] md:w-fit md:max-w-[90vw] z-50 border-2 md:border-4 border-black rounded-full bg-[#d9ff36]/15 glass flex items-center justify-between px-4 sm:px-6 py-1 md:px-10 md:py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mx-auto mt-4 mb-4">
-            <a href="#gallery" className="flex flex-col items-center md:flex-row md:gap-2 text-base md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black hover:text-[#ff00ff] leading-none"><span className="text-xl sm:text-xl md:text-3xl">📸</span><span>Gallery</span></a>
-            <a href="#events" className="flex flex-col items-center md:flex-row md:gap-2 text-base md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black hover:text-[#ff00ff] leading-none"><span className="text-xl sm:text-xl md:text-3xl">🎤</span><span>Shows</span></a>
+          <nav className="sticky top-4 w-[95vw] md:w-fit md:max-w-[95vw] z-50 border-2 md:border-4 border-black rounded-full bg-[#d9ff36]/20 backdrop-blur-md flex items-center justify-between px-3 py-2 md:px-10 md:py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mx-auto mt-4 mb-4">
+            <a href="#gallery" className="flex flex-col items-center md:flex-row md:gap-2 text-base md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black hover:text-[#ff00ff] leading-none">
+              <span className="text-2xl md:text-3xl">📸</span>
+              <span className="hidden md:inline">Gallery</span>
+            </a>
+            <a href="#events" className="flex flex-col items-center md:flex-row md:gap-2 text-base md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black hover:text-[#ff00ff] leading-none">
+              <span className="text-2xl md:text-3xl">🎤</span>
+              <span className="hidden md:inline">Shows</span>
+            </a>
 
             <a
               href="#"
@@ -60,20 +66,23 @@ export default function App() {
                 setCurrentView('home');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="mx-0.5 sm:mx-4 md:mx-8 select-none flex items-center justify-center flex-shrink-0 hover:scale-105 transition-transform"
+              className="mx-2 select-none flex items-center justify-center flex-shrink-0 hover:scale-105 transition-transform"
             >
               {siteSettings.site_logo_url ? (
-                <img src={siteSettings.site_logo_url} alt="Logo" className="h-[18vw] max-h-24 md:h-28 w-auto object-contain drop-shadow-[4px_4px_0px_rgba(0,0,0,1)]" />
+                <img src={siteSettings.site_logo_url} alt="Logo" className="h-10 md:h-16 w-auto object-contain drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]" />
               ) : (
-                <span className="text-2xl sm:text-4xl md:text-6xl font-logo leading-none text-center flex flex-col uppercase">
-                  {siteSettings.site_logo_text.split(' ').map((word: string, i: number) => (
+                <span className="text-xl md:text-4xl font-logo leading-none text-center flex flex-col uppercase px-2">
+                  {(siteSettings.site_logo_text || 'Nixxy Toxic').split(' ').map((word: string, i: number) => (
                     <span key={i} className={i % 2 === 0 ? "text-black" : "text-[#ff00ff]"}>{word}</span>
                   ))}
                 </span>
               )}
             </a>
 
-            <a href="#store" className="flex flex-col items-center md:flex-row md:gap-2 text-base md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black hover:text-[#ff00ff] leading-none"><span className="text-xl sm:text-xl md:text-3xl">🛒</span><span>Store</span></a>
+            <a href="#store" className="flex flex-col items-center md:flex-row md:gap-2 text-base md:text-3xl uppercase hover:glitch-text transition-all font-mono font-black hover:text-[#ff00ff] leading-none">
+              <span className="text-2xl md:text-3xl">🛒</span>
+              <span className="hidden md:inline">Store</span>
+            </a>
 
             <button
               onClick={handleMenuClick}
@@ -136,7 +145,7 @@ export default function App() {
           )}
         </AnimatePresence>
 
-        <main className={currentView === 'home' ? "pt-0" : "pt-0"}>
+        <main className={currentView === 'home' ? "pt-4" : "pt-0"}>
           {currentView === 'home' && (
             <>
               <Hero />
@@ -165,7 +174,7 @@ export default function App() {
           {siteSettings.site_logo_url ? (
             <img src={siteSettings.site_logo_url} alt="Logo" className="h-24 md:h-48 w-auto object-contain brightness-0 invert" />
           ) : (
-            <h2 className="text-6xl md:text-9xl font-logo text-[#dfff00]">
+            <h2 className="text-6xl md:text-9xl font-logo text-[#ff00ff] drop-shadow-[4px_4px_0px_#d9ff36]">
               {siteSettings.site_logo_text}
             </h2>
           )}
