@@ -79,8 +79,18 @@ app.post('/api/login', (req, res) => {
 
 // Gallery
 app.get('/api/gallery', (req, res) => {
-    const photos = db.prepare('SELECT * FROM gallery ORDER BY order_index ASC').all();
-    res.json(photos);
+    const images = db.prepare('SELECT * FROM gallery ORDER BY sort_order ASC, created_at DESC').all();
+    res.json(images);
+});
+
+app.post('/api/gallery/reorder', authenticate, (req, res) => {
+    const { itemIds } = req.body;
+    const stmt = db.prepare('UPDATE gallery SET sort_order = ? WHERE id = ?');
+    const transaction = db.transaction((ids) => {
+        ids.forEach((id: number, index: number) => stmt.run(index, id));
+    });
+    transaction(itemIds);
+    res.sendStatus(200);
 });
 
 app.post('/api/gallery', authenticate, upload.single('photo'), async (req, res) => {
@@ -140,6 +150,11 @@ app.post('/api/events', authenticate, (req, res) => {
     }
 });
 
+app.get('/api/events/:id/attendees', authenticate, (req, res) => {
+    const attendees = db.prepare('SELECT customer_name, customer_email, created_at FROM orders WHERE event_id = ? ORDER BY created_at DESC').all(req.params.id);
+    res.json(attendees);
+});
+
 app.delete('/api/events/:id', authenticate, (req, res) => {
     db.prepare('DELETE FROM events WHERE id = ?').run(req.params.id);
     res.sendStatus(200);
@@ -149,12 +164,12 @@ import { sendEmail, generateOrderEmail, generateTicketEmail } from './email';
 
 // Products (Merchandise)
 app.get('/api/products', (req, res) => {
-    const products = db.prepare('SELECT * FROM products WHERE active = 1').all();
+    const products = db.prepare('SELECT * FROM products WHERE active = 1 ORDER BY sort_order ASC, created_at DESC').all();
     res.json(products);
 });
 
 app.post('/api/products', authenticate, upload.single('image'), async (req, res) => {
-    const { name, description, price } = req.body;
+    const { name, description, price, badge } = req.body;
     let imageUrl = '';
 
     if (req.file) {
@@ -166,9 +181,19 @@ app.post('/api/products', authenticate, upload.single('image'), async (req, res)
         imageUrl = `/uploads/${filename}`;
     }
 
-    const stmt = db.prepare('INSERT INTO products (name, description, price, image_url) VALUES (?, ?, ?, ?)');
-    const info = stmt.run(name, description, price, imageUrl);
+    const stmt = db.prepare('INSERT INTO products (name, description, price, image_url, badge) VALUES (?, ?, ?, ?, ?)');
+    const info = stmt.run(name, description, price, imageUrl, badge || '');
     res.json({ id: info.lastInsertRowid });
+});
+
+app.post('/api/products/reorder', authenticate, (req, res) => {
+    const { productIds } = req.body;
+    const stmt = db.prepare('UPDATE products SET sort_order = ? WHERE id = ?');
+    const transaction = db.transaction((ids) => {
+        ids.forEach((id: number, index: number) => stmt.run(index, id));
+    });
+    transaction(productIds);
+    res.sendStatus(200);
 });
 
 app.delete('/api/products/:id', authenticate, (req, res) => {
@@ -181,8 +206,8 @@ app.post('/api/checkout', async (req, res) => {
     const { customer_name, customer_email, items, total, event_id } = req.body;
     const orderId = Math.random().toString(36).substring(2, 10).toUpperCase();
 
-    const stmt = db.prepare('INSERT INTO orders (order_id, customer_name, customer_email, items, total) VALUES (?, ?, ?, ?, ?)');
-    stmt.run(orderId, customer_name, customer_email, JSON.stringify(items), total);
+    const stmt = db.prepare('INSERT INTO orders (order_id, customer_name, customer_email, items, total, event_id) VALUES (?, ?, ?, ?, ?, ?)');
+    stmt.run(orderId, customer_name, customer_email, JSON.stringify(items), total, event_id || null);
 
     const order = { order_id: orderId, customer_name, customer_email, items: JSON.stringify(items), total };
     const siteLogo = db.prepare('SELECT value FROM settings WHERE key = ?').get('site_logo_url') as any;
@@ -207,6 +232,17 @@ app.post('/api/checkout', async (req, res) => {
 app.get('/api/orders', authenticate, (req, res) => {
     const orders = db.prepare('SELECT * FROM orders ORDER BY created_at DESC').all();
     res.json(orders);
+});
+
+app.patch('/api/orders/:id', authenticate, (req, res) => {
+    const { status } = req.body;
+    db.prepare('UPDATE orders SET status = ? WHERE id = ?').run(status, req.params.id);
+    res.sendStatus(200);
+});
+
+app.delete('/api/orders/:id', authenticate, (req, res) => {
+    db.prepare('DELETE FROM orders WHERE id = ?').run(req.params.id);
+    res.sendStatus(200);
 });
 
 // SMTP Settings

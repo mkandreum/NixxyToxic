@@ -144,6 +144,34 @@ if (smtpCount.count === 0) {
   if (!eventColumnNames.includes('tickets_available')) {
     db.exec("ALTER TABLE events ADD COLUMN tickets_available INTEGER DEFAULT 100");
   }
+
+  // Migration for products table
+  const prodColumns = db.prepare("PRAGMA table_info(products)").all() as any[];
+  const prodColumnNames = prodColumns.map(c => c.name);
+  if (!prodColumnNames.includes('sort_order')) {
+    db.exec("ALTER TABLE products ADD COLUMN sort_order INTEGER DEFAULT 0");
+  }
+  if (!prodColumnNames.includes('badge')) {
+    db.exec("ALTER TABLE products ADD COLUMN badge TEXT");
+  }
+
+  // Migration for orders table
+  const orderColumns = db.prepare("PRAGMA table_info(orders)").all() as any[];
+  const orderColumnNames = orderColumns.map(c => c.name);
+  if (!orderColumnNames.includes('event_id')) {
+    db.exec("ALTER TABLE orders ADD COLUMN event_id INTEGER");
+  }
+  if (!orderColumnNames.includes('status')) {
+    db.exec("ALTER TABLE orders ADD COLUMN status TEXT DEFAULT 'pending'");
+  }
+
+  // Migration for gallery table
+  const galColumns = db.prepare("PRAGMA table_info(gallery)").all() as any[];
+  const galColumnNames = galColumns.map(c => c.name);
+  if (!galColumnNames.includes('sort_order')) {
+    db.exec("ALTER TABLE gallery ADD COLUMN sort_order INTEGER DEFAULT 0");
+    db.exec("UPDATE gallery SET sort_order = id");
+  }
 }
 
 export default db;

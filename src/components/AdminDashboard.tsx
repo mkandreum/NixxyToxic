@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 import {
     LayoutDashboard, ImageIcon, Calendar, Settings, LogOut,
     Plus, Trash2, Save, Upload, Megaphone, ShoppingBag,
-    Mail, Ticket, CheckCircle, Clock, X
+    Mail, Ticket, CheckCircle, Clock, X, Users, ArrowUp, ArrowDown, Star, Check
 } from "lucide-react";
 import { useToast } from "./Toast";
 
@@ -304,7 +304,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                     {activeTab === 'events' && <EventsTab items={data.events} onUpdate={refreshData} openConfirm={openConfirm} />}
                     {activeTab === 'banners' && <BannersTab items={data.banners} onUpdate={refreshData} openConfirm={openConfirm} />}
                     {activeTab === 'store' && <StoreTab items={data.products} onUpdate={refreshData} openConfirm={openConfirm} openForm={openForm} />}
-                    {activeTab === 'orders' && <OrdersTab items={data.orders} onUpdate={refreshData} />}
+                    {activeTab === 'orders' && <OrdersTab items={data.orders} onUpdate={refreshData} openConfirm={openConfirm} />}
                     {activeTab === 'smtp' && <SMTPTab smtp={data.smtp} onUpdate={refreshData} />}
                     {activeTab === 'settings' && <SettingsTab settings={data.settings} onUpdate={refreshData} />}
                 </div>
@@ -358,17 +358,48 @@ function GalleryTab({ items, onUpdate, openConfirm }: { items: any[], onUpdate: 
         }
     };
 
+    const moveItem = async (index: number, direction: 'up' | 'down') => {
+        const newItems = [...items];
+        const newIndex = direction === 'up' ? index - 1 : index + 1;
+        if (newIndex < 0 || newIndex >= items.length) return;
+
+        [newItems[index], newItems[newIndex]] = [newItems[newIndex], newItems[index]];
+
+        try {
+            await toxicFetch('/api/gallery/reorder', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ itemIds: newItems.map(i => i.id) })
+            });
+            onUpdate();
+        } catch (err) {
+            showToast("Failed to reorder", "error");
+        }
+    };
+
     return (
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {items.map((item) => (
-                <div key={item.id} className="group relative border-4 border-black aspect-square overflow-hidden bg-gray-100 shadow-[4px_4px_0px_0px_#000]">
+            {items.map((item, i) => (
+                <div key={item.id} className="group relative border-4 border-black aspect-square overflow-hidden bg-gray-100 shadow-[4px_4px_0px_0px_#000] flex flex-col">
                     <img src={item.url} alt="" className="w-full h-full object-cover" />
-                    <button onClick={() => handleDelete(item.id)} className="absolute top-2 right-2 p-2 bg-white border-2 border-black opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500 hover:text-white">
-                        <Trash2 size={20} />
-                    </button>
+                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-2">
+                        <div className="flex justify-end gap-1">
+                            <button onClick={() => handleDelete(item.id)} className="p-2 bg-red-500 text-white border-2 border-black hover:scale-110 transition-transform">
+                                <Trash2 size={16} />
+                            </button>
+                        </div>
+                        <div className="flex gap-1">
+                            <button onClick={() => moveItem(i, 'up')} disabled={i === 0} className="flex-1 p-2 bg-white border-2 border-black disabled:opacity-30 hover:bg-[#d9ff36] transition-colors flex justify-center">
+                                <ArrowUp size={16} />
+                            </button>
+                            <button onClick={() => moveItem(i, 'down')} disabled={i === items.length - 1} className="flex-1 p-2 bg-white border-2 border-black disabled:opacity-30 hover:bg-[#d9ff36] transition-colors flex justify-center">
+                                <ArrowDown size={16} />
+                            </button>
+                        </div>
+                    </div>
                 </div>
             ))}
-            <label className="border-4 border-dashed border-black aspect-square flex flex-col items-center justify-center gap-2 hover:bg-black/5 transition-colors cursor-pointer">
+            <label className="border-4 border-dashed border-black aspect-square flex flex-col items-center justify-center gap-2 hover:bg-black/5 transition-colors cursor-pointer bg-white">
                 <input id="gallery-upload-input" type="file" className="hidden" onChange={handleUpload} />
                 <Upload size={32} />
                 <span className="uppercase font-black">Upload</span>
@@ -378,11 +409,26 @@ function GalleryTab({ items, onUpdate, openConfirm }: { items: any[], onUpdate: 
 }
 
 function EventsTab({ items, onUpdate, openConfirm }: { items: any[], onUpdate: () => void, openConfirm: any }) {
-    const { showToast } = useToast();
+    const { showToast, hideToast } = useToast();
+    const [attendees, setAttendees] = useState<{ isOpen: boolean, list: any[], title: string }>({ isOpen: false, list: [], title: '' });
+
+    const viewAttendees = async (event: any) => {
+        const toastId = showToast("Fetching attendees...", "loading");
+        try {
+            const res = await toxicFetch(`/api/events/${event.id}/attendees`);
+            const list = await res.json();
+            setAttendees({ isOpen: true, list, title: `${event.city} - ${event.date}` });
+        } catch (err) {
+            showToast("Failed to fetch attendees", "error");
+        } finally {
+            hideToast(toastId);
+        }
+    };
+
     return (
         <div className="space-y-4">
             {items.map((event) => (
-                <div key={event.id} className="border-4 border-black p-6 flex flex-col md:flex-row justify-between items-center gap-6 shadow-[8px_8px_0px_0px_#000]">
+                <div key={event.id} className="border-4 border-black p-6 flex flex-col md:flex-row justify-between items-center gap-6 shadow-[8px_8px_0px_0px_#000] bg-white">
                     <div className="flex gap-8 items-center flex-1">
                         <div className="text-4xl font-black bg-black text-[#d9ff36] p-4 min-w-[140px] text-center">{event.date}</div>
                         <div>
@@ -391,18 +437,59 @@ function EventsTab({ items, onUpdate, openConfirm }: { items: any[], onUpdate: (
                             <p className="text-lg bg-[#ff00ff] text-white px-2 mt-1 inline-block uppercase font-black">{event.ticket_price}€ TICKETS</p>
                         </div>
                     </div>
-                    <button className="p-4 border-4 border-black hover:bg-red-500 hover:text-white transition-colors" onClick={() => {
-                        openConfirm("Delete Show?", async () => {
-                            showToast("Deleting...", "loading");
-                            await toxicFetch(`/api/events/${event.id}`, { method: 'DELETE' });
-                            onUpdate();
-                            showToast("Deleted!", "success");
-                        });
-                    }}>
-                        <Trash2 size={24} />
-                    </button>
+                    <div className="flex gap-4">
+                        <button
+                            className="p-4 border-4 border-black hover:bg-[#d9ff36] transition-colors flex items-center gap-2 font-black uppercase"
+                            onClick={() => viewAttendees(event)}
+                        >
+                            <Users size={24} /> <span className="hidden md:inline">Attendees</span>
+                        </button>
+                        <button className="p-4 border-4 border-black hover:bg-red-500 hover:text-white transition-colors" onClick={() => {
+                            openConfirm("Delete Show?", async () => {
+                                showToast("Deleting...", "loading");
+                                await toxicFetch(`/api/events/${event.id}`, { method: 'DELETE' });
+                                onUpdate();
+                                showToast("Deleted!", "success");
+                            });
+                        }}>
+                            <Trash2 size={24} />
+                        </button>
+                    </div>
                 </div>
             ))}
+
+            {/* Attendees Modal */}
+            <AnimatePresence>
+                {attendees.isOpen && (
+                    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
+                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setAttendees(prev => ({ ...prev, isOpen: false }))} className="absolute inset-0 bg-black/80 glass" />
+                        <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} exit={{ scale: 0.9 }} className="bg-white border-8 border-black p-8 max-w-2xl w-full relative z-[201] shadow-[20px_20px_0px_0px_#000] max-h-[80vh] overflow-y-auto">
+                            <div className="flex justify-between items-start mb-8 border-b-4 border-black pb-4">
+                                <h3 className="text-3xl font-black uppercase italic">{attendees.title}</h3>
+                                <button onClick={() => setAttendees(prev => ({ ...prev, isOpen: false }))}><X size={40} /></button>
+                            </div>
+
+                            <div className="space-y-4">
+                                {attendees.list.length === 0 ? (
+                                    <p className="text-center py-10 opacity-40 uppercase font-black">No tickets sold yet, Bitch!</p>
+                                ) : (
+                                    attendees.list.map((person, i) => (
+                                        <div key={i} className="border-2 border-black p-4 flex justify-between items-center bg-gray-50">
+                                            <div>
+                                                <p className="font-black uppercase text-xl">{person.customer_name}</p>
+                                                <p className="font-mono opacity-60">{person.customer_email}</p>
+                                            </div>
+                                            <div className="text-right text-sm opacity-40 font-bold uppercase">
+                                                {new Date(person.created_at).toLocaleDateString()}
+                                            </div>
+                                        </div>
+                                    ))
+                                )}
+                            </div>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }
@@ -416,13 +503,15 @@ function StoreTab({ items, onUpdate, openConfirm, openForm }: { items: any[], on
 
         openForm("Add Product", [
             { key: 'name', label: 'Product Name', type: 'text', placeholder: 'TOXIC HOODIE' },
-            { key: 'price', label: 'Price (EUR)', type: 'number', placeholder: '25.00' }
+            { key: 'price', label: 'Price (EUR)', type: 'number', placeholder: '25.00' },
+            { key: 'badge', label: 'Badge (WOW, TOOXICO, ⚡, 🔥)', type: 'text', placeholder: '🔥 TOOXICO' }
         ], async (formData) => {
             const toastId = showToast("Uploading product...", "loading");
             const fd = new FormData();
             fd.append('image', file);
             fd.append('name', formData.name);
             fd.append('price', formData.price);
+            fd.append('badge', formData.badge || '');
 
             try {
                 await toxicFetch('/api/products', { method: 'POST', body: fd });
@@ -443,23 +532,51 @@ function StoreTab({ items, onUpdate, openConfirm, openForm }: { items: any[], on
         });
     };
 
+    const moveItem = async (index: number, direction: 'up' | 'down') => {
+        const newItems = [...items];
+        const newIndex = direction === 'up' ? index - 1 : index + 1;
+        if (newIndex < 0 || newIndex >= items.length) return;
+
+        [newItems[index], newItems[newIndex]] = [newItems[newIndex], newItems[index]];
+
+        try {
+            await toxicFetch('/api/products/reorder', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ productIds: newItems.map(i => i.id) })
+            });
+            onUpdate();
+        } catch (err) {
+            showToast("Failed to reorder", "error");
+        }
+    };
+
     return (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {items.map((prod) => (
-                <div key={prod.id} className="border-4 border-black bg-white shadow-[8px_8px_0px_0px_#000] overflow-hidden group">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            {items.map((prod, i) => (
+                <div key={prod.id} className="border-4 border-black bg-white shadow-[8px_8px_0px_0px_#000] overflow-hidden group flex flex-col">
                     <div className="aspect-square relative flex items-center justify-center p-4">
+                        {prod.badge && (
+                            <div className="absolute top-2 left-2 z-10 bg-[#ff00ff] text-white px-3 py-1 font-black uppercase text-xs border-2 border-black rotate-[-5deg] shadow-[2px_2px_0px_0px_black]">
+                                {prod.badge}
+                            </div>
+                        )}
                         <img src={prod.image_url} alt={prod.name} className="max-h-full object-contain" />
-                        <button onClick={() => handleDelete(prod.id)} className="absolute top-4 right-4 bg-white border-2 border-black p-2 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500 hover:text-white">
-                            <Trash2 size={24} />
-                        </button>
                     </div>
-                    <div className="p-6 border-t-4 border-black bg-[#d9ff36]/10">
-                        <h3 className="text-2xl font-black uppercase mb-2">{prod.name}</h3>
-                        <p className="text-3xl font-black">{prod.price}€</p>
+                    <div className="p-4 flex-1 flex flex-col justify-between border-t-4 border-black bg-[#f8f8f8]">
+                        <div className="mb-4">
+                            <p className="font-black uppercase text-xl leading-tight">{prod.name}</p>
+                            <p className="text-2xl font-black text-[#ff00ff] italic">{prod.price}€</p>
+                        </div>
+                        <div className="flex gap-2">
+                            <button onClick={() => moveItem(i, 'up')} disabled={i === 0} className="flex-1 p-2 border-2 border-black hover:bg-[#d9ff36] disabled:opacity-20 flex justify-center"><ArrowUp size={20} /></button>
+                            <button onClick={() => moveItem(i, 'down')} disabled={i === items.length - 1} className="flex-1 p-2 border-2 border-black hover:bg-[#d9ff36] disabled:opacity-20 flex justify-center"><ArrowDown size={20} /></button>
+                            <button onClick={() => handleDelete(prod.id)} className="flex-1 p-2 border-2 border-black hover:bg-red-500 hover:text-white flex justify-center"><Trash2 size={20} /></button>
+                        </div>
                     </div>
                 </div>
             ))}
-            <label className="border-4 border-dashed border-black aspect-square flex flex-col items-center justify-center gap-4 hover:bg-black/5 transition-colors cursor-pointer bg-white">
+            <label className="border-4 border-dashed border-black aspect-square flex flex-col items-center justify-center gap-4 hover:bg-black/5 transition-colors cursor-pointer bg-white group shadow-[8px_8px_0px_0px_#ddd]">
                 <input id="product-upload-input" type="file" className="hidden" onChange={handleUpload} />
                 <Plus size={48} />
                 <span className="uppercase font-black text-2xl">Add Product</span>
@@ -468,13 +585,35 @@ function StoreTab({ items, onUpdate, openConfirm, openForm }: { items: any[], on
     );
 }
 
-function OrdersTab({ items, onUpdate }: { items: any[], onUpdate: () => void }) {
+function OrdersTab({ items, onUpdate, openConfirm }: { items: any[], onUpdate: () => void, openConfirm: any }) {
+    const { showToast } = useToast();
+
+    const updateStatus = async (id: number, status: string) => {
+        await toxicFetch(`/api/orders/${id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status })
+        });
+        onUpdate();
+        showToast(`Order ${status}!`, "success");
+    };
+
+    const deleteOrder = (id: number) => {
+        openConfirm("Delete Order Record?", async () => {
+            await toxicFetch(`/api/orders/${id}`, { method: 'DELETE' });
+            onUpdate();
+            showToast("Order deleted", "success");
+        });
+    };
+
     return (
         <div className="space-y-4">
             {items.map((order) => {
                 const orderItems = JSON.parse(order.items || '[]');
+                const isCompleted = order.status === 'completed';
                 return (
-                    <div key={order.id} className="border-4 border-black p-6 bg-white shadow-[8px_8px_0px_0px_#000]">
+                    <div key={order.id} className={`border-4 border-black p-6 shadow-[8px_8px_0px_0px_#000] relative overflow-hidden transition-all ${isCompleted ? 'bg-gray-100 opacity-60' : 'bg-white'}`}>
+                        {isCompleted && <div className="absolute top-4 right-4 text-green-600 font-black uppercase text-xl flex items-center gap-2 rotate-12 border-4 border-green-600 p-2">COMPLETED</div>}
                         <div className="flex flex-col md:flex-row justify-between mb-4 border-b-2 border-black pb-4">
                             <div>
                                 <h3 className="text-2xl font-black">ORDER #{order.order_id}</h3>
@@ -485,13 +624,29 @@ function OrdersTab({ items, onUpdate }: { items: any[], onUpdate: () => void }) 
                                 <p className="uppercase font-bold text-xs">{new Date(order.created_at).toLocaleString()}</p>
                             </div>
                         </div>
-                        <div className="grid gap-2">
+                        <div className="grid gap-2 mb-6">
                             {orderItems.map((item: any, i: number) => (
                                 <div key={i} className="flex justify-between uppercase font-bold">
                                     <span>{item.quantity}x {item.name}</span>
                                     <span>{item.price * item.quantity}€</span>
                                 </div>
                             ))}
+                        </div>
+                        <div className="flex gap-4">
+                            {!isCompleted && (
+                                <button
+                                    onClick={() => updateStatus(order.id, 'completed')}
+                                    className="px-6 py-2 bg-[#d9ff36] border-4 border-black font-black uppercase flex items-center gap-2 hover:translate-y-1 hover:shadow-none shadow-[4px_4px_0px_0px_black] transition-all"
+                                >
+                                    <Check size={20} /> Complete
+                                </button>
+                            )}
+                            <button
+                                onClick={() => deleteOrder(order.id)}
+                                className="px-6 py-2 bg-red-500 text-white border-4 border-black font-black uppercase flex items-center gap-2 hover:translate-y-1 hover:shadow-none shadow-[4px_4px_0px_0px_black] transition-all"
+                            >
+                                <Trash2 size={20} /> Delete
+                            </button>
                         </div>
                     </div>
                 );

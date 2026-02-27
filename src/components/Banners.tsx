@@ -27,27 +27,36 @@ export default function Banners() {
     if (banners.length === 0) return null;
 
     return (
-        <div className="fixed top-0 left-0 w-full z-[100] flex flex-col pointer-events-none">
+        <div className="relative w-full z-[100] flex flex-col">
             <AnimatePresence>
                 {banners.map((banner, i) => (
                     <motion.div
                         key={banner.id}
-                        initial={{ y: -50, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        exit={{ y: -50, opacity: 0 }}
-                        transition={{ delay: i * 0.2 }}
-                        className="w-full py-2 px-4 shadow-lg flex justify-center items-center pointer-events-auto border-b-2 border-black glass"
-                        style={{ backgroundColor: `${banner.bg_color}cc`, color: banner.text_color }}
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="w-full relative overflow-hidden group border-b-4 border-black"
+                        style={{ backgroundColor: banner.bg_color, color: banner.text_color }}
                     >
-                        <p className="text-sm md:text-lg uppercase font-black text-center tracking-widest px-8">
-                            {banner.text}
-                        </p>
-                        <button
-                            onClick={() => setBanners(prev => prev.filter(b => b.id !== banner.id))}
-                            className="absolute right-4 hover:scale-110 transition-transform"
-                        >
-                            <X size={20} />
-                        </button>
+                        <div className="flex items-center justify-center py-4 px-12 min-h-[64px] relative">
+                            {/* Animated Background Element */}
+                            <motion.div
+                                animate={{ x: ['-200%', '200%'] }}
+                                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                                className="absolute inset-0 opacity-10 bg-white skew-x-[30deg]"
+                            />
+
+                            <p className="text-xl md:text-3xl uppercase font-black text-center tracking-tighter italic leading-none relative z-10 px-10">
+                                {banner.text}
+                            </p>
+
+                            <button
+                                onClick={() => setBanners(prev => prev.filter(b => b.id !== banner.id))}
+                                className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 border-2 border-current rounded-full flex items-center justify-center hover:bg-black hover:text-[#d9ff36] transition-all z-20 group-hover:rotate-90"
+                            >
+                                <X size={24} />
+                            </button>
+                        </div>
                     </motion.div>
                 ))}
             </AnimatePresence>

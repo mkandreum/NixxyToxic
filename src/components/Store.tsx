@@ -110,6 +110,11 @@ export default function Store() {
               className="bg-white text-black border-4 border-[#d9ff36] shadow-[12px_12px_0px_0px_#d9ff36] overflow-hidden flex flex-col group"
             >
               <div className="aspect-square relative overflow-hidden bg-gray-100 flex items-center justify-center p-8">
+                {prod.badge && (
+                  <div className="absolute top-4 left-4 z-10 bg-[#ff00ff] text-white px-4 py-2 font-black uppercase text-sm border-[3px] border-black rotate-[-3deg] shadow-[4px_4px_0px_0px_black] transform group-hover:scale-110 transition-transform">
+                    {prod.badge}
+                  </div>
+                )}
                 <img src={prod.image_url} alt={prod.name} className="max-h-full object-contain group-hover:scale-110 transition-transform duration-500" />
               </div>
               <div className="p-8 flex flex-col flex-1 gap-4 border-t-4 border-black">
